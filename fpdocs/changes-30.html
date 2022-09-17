@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Changes in version 3.0 &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changes in version 2.7.x" href="changes-27.html" />
+    <link rel="prev" title="Changes in version 3.0.1" href="changes-301.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="changes-in-version-3-0">
+<h1>Changes in version 3.0<a class="headerlink" href="#changes-in-version-3-0" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">Universal Feed Parser</strong> 3.0 was released on June 21, 2004.</p>
+<ul class="simple">
+<li><p>don’t try <code class="docutils literal notranslate"><span class="pre">iso-8859-1</span></code> (can’t distinguish between <code class="docutils literal notranslate"><span class="pre">iso-8859-1</span></code> and <code class="docutils literal notranslate"><span class="pre">windows-1252</span></code> anyway, and most incorrectly marked feeds are <code class="docutils literal notranslate"><span class="pre">windows-1252</span></code>)</p></li>
+<li><p>fixed regression that could cause the same encoding to be tried twice (even if it failed the first time)</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0fc3 was released on June 18, 2004.</p>
+<ul class="simple">
+<li><p>fixed bug in <code class="docutils literal notranslate"><span class="pre">_changeEncodingDeclaration</span></code> that failed to parse UTF-16 encoded feeds</p></li>
+<li><p>made <code class="docutils literal notranslate"><span class="pre">source</span></code> into a FeedParserDict</p></li>
+<li><p>duplicate admin:generatorAgent/&#64;rdf:resource in <code class="docutils literal notranslate"><span class="pre">generator_detail.url</span></code></p></li>
+<li><p>added support for image</p></li>
+<li><p>refactored <code class="docutils literal notranslate"><span class="pre">parse()</span></code> fallback logic to try other encodings if SAX parsing fails (previously it would only try other encodings if re-encoding failed)</p></li>
+<li><p>remove <code class="docutils literal notranslate"><span class="pre">unichr</span></code> madness in normalize_attrs now that we’re properly tracking encoding in and out of BaseHTMLProcessor</p></li>
+<li><p>set <code class="docutils literal notranslate"><span class="pre">feed.language</span></code> from root-level xml:lang</p></li>
+<li><p>set <code class="docutils literal notranslate"><span class="pre">entry.id</span></code> from rdf:about</p></li>
+<li><p>send <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0fc2 was released on May 10, 2004.</p>
+<ul class="simple">
+<li><p>added and passed Sam’s amp tests</p></li>
+<li><p>added and passed my blink tag tests</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0fc1 was released on April 23, 2004.</p>
+<ul class="simple">
+<li><p>made <code class="docutils literal notranslate"><span class="pre">results.entries[0].links[0]</span></code> and <code class="docutils literal notranslate"><span class="pre">results.entries[0].enclosures[0]</span></code> into FeedParserDict</p></li>
+<li><p>fixed typo that could cause the same encoding to be tried twice (even if it failed the first time)</p></li>
+<li><p>fixed DOCTYPE stripping when DOCTYPE contained entity declarations</p></li>
+<li><p>better textinput and image tracking in illformed <abbr title="Rich Site Summary">RSS</abbr> 1.0 feeds</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b23 was released on April 21, 2004.</p>
+<ul class="simple">
+<li><p>fixed <code class="docutils literal notranslate"><span class="pre">UnicodeDecodeError</span></code> for feeds that contain high-bit characters in attributes in embedded <abbr title="HyperText Markup Language">HTML</abbr> in description (thanks Thijs van de Vossen)</p></li>
+<li><p>moved <code class="docutils literal notranslate"><span class="pre">guid</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code>, and <code class="docutils literal notranslate"><span class="pre">date_parsed</span></code> to mapped keys in FeedParserDict</p></li>
+<li><p>tweaked FeedParserDict.has_key to return <code class="docutils literal notranslate"><span class="pre">True</span></code> if asking about a mapped key</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b22 was released on April 19, 2004.</p>
+<ul class="simple">
+<li><p>changed <code class="docutils literal notranslate"><span class="pre">channel</span></code> to <code class="docutils literal notranslate"><span class="pre">feed</span></code>, <code class="docutils literal notranslate"><span class="pre">item</span></code> to <code class="docutils literal notranslate"><span class="pre">entries</span></code> in <code class="docutils literal notranslate"><span class="pre">results</span></code> dict</p></li>
+<li><p>changed <code class="docutils literal notranslate"><span class="pre">results</span></code> dict to allow getting values with <code class="docutils literal notranslate"><span class="pre">results.key</span></code> as well as <code class="docutils literal notranslate"><span class="pre">results[key]</span></code></p></li>
+<li><p>work around embedded illformed <abbr title="HyperText Markup Language">HTML</abbr> with half a DOCTYPE</p></li>
+<li><p>work around malformed <code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> header</p></li>
+<li><p>if character encoding is wrong, try several common ones before falling back to regexes (if this works, <code class="docutils literal notranslate"><span class="pre">bozo_exception</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CharacterEncodingOverride</span></code></p></li>
+<li><p>fixed character encoding issues in BaseHTMLProcessor by tracking encoding and converting from Unicode to raw strings before feeding data to sgmllib.SGMLParser</p></li>
+<li><p>convert each value in results to Unicode (if possible), even if using regex-based parsing</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b21 was released on April 14, 2004.</p>
+<ul class="simple">
+<li><p>added Hot RSS support</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b20 was released on April 7, 2004.</p>
+<ul class="simple">
+<li><p>added <abbr title="Channel Definition Format">CDF</abbr> support</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b19 was released on March 15, 2004.</p>
+<ul class="simple">
+<li><p>fixed bug exploding author information when author name was in parentheses</p></li>
+<li><p>removed ultra-problematic <code class="file docutils literal notranslate"><span class="pre">mxTidy</span></code> support</p></li>
+<li><p>patch to workaround crash in PyXML/expat when encountering invalid entities (MarkMoraes)</p></li>
+<li><p>support for textinput/textInput</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b18 was released on February 17, 2004.</p>
+<ul class="simple">
+<li><p>always map description to <code class="docutils literal notranslate"><span class="pre">summary_detail</span></code> (Andrei)</p></li>
+<li><p>use <code class="file docutils literal notranslate"><span class="pre">libxml2</span></code> (if available)</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b17 was released on February 13, 2004.</p>
+<ul class="simple">
+<li><p>determine character encoding as per <a class="reference external" href="http://www.ietf.org/rfc/rfc3023.txt">RFC 3023</a></p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b16 was released on February 12, 2004.</p>
+<ul class="simple">
+<li><p>fixed support for <abbr title="Rich Site Summary">RSS</abbr> 0.90 (broken in b15)</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b15 was released on February 11, 2004.</p>
+<ul class="simple">
+<li><p>fixed bug resolving relative links in wfw:commentRSS</p></li>
+<li><p>fixed bug capturing author and contributor <abbr title="Uniform Resource Identifier">URI</abbr></p></li>
+<li><p>fixed bug resolving relative links in author and contributor <abbr title="Uniform Resource Identifier">URI</abbr></p></li>
+<li><p>fixed bug resolving relative links in generator <abbr title="Uniform Resource Identifier">URI</abbr></p></li>
+<li><p>added support for recognizing <abbr title="Rich Site Summary">RSS</abbr> 1.0</p></li>
+<li><p>passed Simon Fell’s namespace tests, and included them permanently in the test suite with his permission</p></li>
+<li><p>fixed namespace handling under <strong class="program">Python</strong> 2.1</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b14 was released on February 8, 2004.</p>
+<ul class="simple">
+<li><p>fixed CDATA handling in non-wellformed feeds under <strong class="program">Python</strong> 2.1</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b13 was released on February 8, 2004.</p>
+<ul class="simple">
+<li><p>better handling of empty <abbr title="HyperText Markup Language">HTML</abbr> tags (br, hr, img, etc.) in embedded markup, in either <abbr title="HyperText Markup Language">HTML</abbr> or <abbr title="Extensible HyperText Markup Language">XHTML</abbr> form (&lt;br&gt;, &lt;br/&gt;, &lt;br /&gt;)</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b12 was released on February 6, 2004.</p>
+<ul class="simple">
+<li><p>fiddled with <code class="docutils literal notranslate"><span class="pre">decodeEntities</span></code> (still not right)</p></li>
+<li><p>added support to Atom 0.2 subtitle</p></li>
+<li><p>added support for Atom content model in copyright</p></li>
+<li><p>better sanitizing of dangerous <abbr title="HyperText Markup Language">HTML</abbr> elements with end tags (script, frameset)</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b11 was released on February 2, 2004.</p>
+<ul class="simple">
+<li><p>added rights to list of elements that can contain dangerous markup</p></li>
+<li><p>fiddled with <code class="docutils literal notranslate"><span class="pre">decodeEntities</span></code> (not right)</p></li>
+<li><p>liberalized date parsing even further</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b10 was released on January 31, 2004.</p>
+<ul class="simple">
+<li><p>incorporated ISO-8601 date parsing routines from <code class="file docutils literal notranslate"><span class="pre">xml.util.iso8601</span></code></p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b9 was released on January 29, 2004.</p>
+<ul class="simple">
+<li><p>fixed check for presence of <code class="docutils literal notranslate"><span class="pre">dict</span></code> function</p></li>
+<li><p>added support for summary</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b8 was released on January 28, 2004.</p>
+<ul class="simple">
+<li><p>added support for contributor</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b7 was released on January 28, 2004.</p>
+<ul class="simple">
+<li><p>support Atom-style author element in <code class="docutils literal notranslate"><span class="pre">author_detail</span></code> (dictionary of <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">url</span></code>, <code class="docutils literal notranslate"><span class="pre">email</span></code>)</p></li>
+<li><p>map <code class="docutils literal notranslate"><span class="pre">author</span></code> to <code class="docutils literal notranslate"><span class="pre">author_detail</span></code> if <code class="docutils literal notranslate"><span class="pre">author</span></code> contains name + email address</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b6 was released on January 27, 2004.</p>
+<ul class="simple">
+<li><p>added feed type and version detection, <code class="docutils literal notranslate"><span class="pre">result['version']</span></code> will be one of <code class="docutils literal notranslate"><span class="pre">SUPPORTED_VERSIONS.keys()</span></code> or empty string if unrecognized</p></li>
+<li><p>added support for creativeCommons:license and cc:license</p></li>
+<li><p>added support for full Atom content model in title, tagline, info, copyright, summary</p></li>
+<li><p>fixed bug with gzip encoding (not always telling server we support it when we do)</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b5 was released on January 26, 2004.</p>
+<ul class="simple">
+<li><p>fixed bug parsing multiple links at feed level</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b4 was released on January 26, 2004.</p>
+<ul class="simple">
+<li><p>fixed xml:lang inheritance</p></li>
+<li><p>fixed multiple bugs tracking xml:base <abbr title="Uniform Resource Identifier">URI</abbr>, one for documents that don’t define one explicitly and one for documents that define an outer and an inner xml:base that goes out of scope before the end of the document</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b3 was released on January 23, 2004.</p>
+<ul class="simple">
+<li><p>parse entire feed with real <abbr title="Extensible Markup Language">XML</abbr> parser (if available)</p></li>
+<li><p>added several new supported namespaces</p></li>
+<li><p>fixed bug tracking naked markup in description</p></li>
+<li><p>added support for enclosure</p></li>
+<li><p>added support for source</p></li>
+<li><p>re-added support for cloud which got dropped somehow</p></li>
+<li><p>added support for expirationDate</p></li>
+</ul>
+<p><strong class="program">Universal Feed Parser</strong> 3.0b2 and 3.0b1 have been lost in the mists of time.</p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="history.html">Revision history</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="changes-42.html">Changes in version 4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-41.html">Changes in version 4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-402.html">Changes in version 4.0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-401.html">Changes in version 4.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-40.html">Changes in version 4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-33.html">Changes in version 3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-32.html">Changes in version 3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-31.html">Changes in version 3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-301.html">Changes in version 3.0.1</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Changes in version 3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-27.html">Changes in version 2.7.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-26.html">Changes in version 2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-early.html">Changes in earlier versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="history.html">Revision history</a><ul>
+      <li>Previous: <a href="changes-301.html" title="previous chapter">Changes in version 3.0.1</a></li>
+      <li>Next: <a href="changes-27.html" title="next chapter">Changes in version 2.7.x</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/changes-30.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

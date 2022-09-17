@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Namespace Handling &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Relative Link Resolution" href="resolving-relative-links.html" />
+    <link rel="prev" title="Content Normalization" href="content-normalization.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="namespace-handling">
+<span id="advanced-namespaces"></span><h1>Namespace Handling<a class="headerlink" href="#namespace-handling" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">Universal Feed Parser</strong> attempts to expose all possible data in feeds,
+including elements in extension namespaces.</p>
+<p>Some common namespaced elements are mapped to core elements.  For further
+information about these mappings, see <a class="reference internal" href="reference.html#reference"><span class="std std-ref">Reference</span></a>.</p>
+<p>Other namespaced elements are available as <code class="docutils literal notranslate"><span class="pre">prefixelement</span></code>.</p>
+<p>The namespaces defined in the feed are available in the parsed results as
+<code class="docutils literal notranslate"><span class="pre">namespaces</span></code>, a dictionary of {prefix: namespaceURI}.  If the feed defines a
+default namespace, it is listed as <code class="docutils literal notranslate"><span class="pre">namespaces['']</span></code>.</p>
+<section id="accessing-namespaced-elements">
+<h2>Accessing namespaced elements<a class="headerlink" href="#accessing-namespaced-elements" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/prism.rdf&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">prism_issn</span>
+<span class="go">u&#39;0028-0836&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">namespaces</span>
+<span class="go">{&#39;&#39;: u&#39;http://purl.org/rss/1.0/&#39;,</span>
+<span class="go">&#39;prism&#39;: u&#39;http://prismstandard.org/namespaces/1.2/basic/&#39;,</span>
+<span class="go">&#39;rdf&#39;: u&#39;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#39;}</span>
+</pre></div>
+</div>
+<p>The prefix used to construct the variable name is not guaranteed to be the same
+as the prefix of the namespaced element in the original feed.  If
+<strong class="program">Universal Feed Parser</strong> recognizes the namespace, it will use the
+namespace’s preferred prefix to construct the variable name.  It will also list
+the namespace in the <code class="docutils literal notranslate"><span class="pre">namespaces</span></code> dictionary using the namespace’s preferred
+prefix.</p>
+<p>In the previous example, the namespace
+(<a class="reference external" href="http://prismstandard.org/namespaces/1.2/basic/">http://prismstandard.org/namespaces/1.2/basic/</a>) was defined with the
+namespace’s preferred prefix (prism), so the prism:issn element was accessible
+as the variable <code class="docutils literal notranslate"><span class="pre">d.feed.prism_issn</span></code>.  However, if the namespace is defined
+with a non-standard prefix, <strong class="program">Universal Feed Parser</strong> will still
+construct the variable name using the preferred prefix, <em>not</em> the actual prefix
+that is used in the feed.</p>
+<p>This will become clear with an example.</p>
+</section>
+<section id="accessing-namespaced-elements-with-non-standard-prefixes">
+<h2>Accessing namespaced elements with non-standard prefixes<a class="headerlink" href="#accessing-namespaced-elements-with-non-standard-prefixes" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import feedparser
+&gt;&gt;&gt; d = feedparser.parse(&#39;http://feedparser.org/docs/examples/nonstandard_prefix.rdf&#39;)
+&gt;&gt;&gt; d.feed.prism_issn
+u&#39;0028-0836&#39;
+&gt;&gt;&gt; d.feed.foo_issn
+Traceback (most recent call last):
+File &quot;&lt;stdin&gt;&quot;, line 1, in ?
+File &quot;feedparser.py&quot;, line 158, in __getattr__
+raise AttributeError, &quot;object has no attribute &#39;%s&#39;&quot; % key
+AttributeError: object has no attribute &#39;foo_issn&#39;
+&gt;&gt;&gt; d.namespaces
+{&#39;&#39;: u&#39;http://purl.org/rss/1.0/&#39;,
+&#39;prism&#39;: u&#39;http://prismstandard.org/namespaces/1.2/basic/&#39;,
+&#39;rdf&#39;: u&#39;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#39;}
+</pre></div>
+</div>
+<p>This is the complete list of namespaces that <strong class="program">Universal Feed Parser</strong>
+recognizes and uses to construct the variable names for data in these
+namespaces:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Prefix</p></th>
+<th class="head"><p>Namespace</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>admin</p></td>
+<td><p><a class="reference external" href="http://webns.net/mvcb/">http://webns.net/mvcb/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>ag</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/aggregation/">http://purl.org/rss/1.0/modules/aggregation/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>annotate</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/annotate/">http://purl.org/rss/1.0/modules/annotate/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>audio</p></td>
+<td><p><a class="reference external" href="http://media.tangent.org/rss/1.0/">http://media.tangent.org/rss/1.0/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>blogChannel</p></td>
+<td><p><a class="reference external" href="http://backend.userland.com/blogChannelModule">http://backend.userland.com/blogChannelModule</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>cc</p></td>
+<td><p><a class="reference external" href="http://web.resource.org/cc/">http://web.resource.org/cc/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>co</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/company">http://purl.org/rss/1.0/modules/company</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>content</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/content/">http://purl.org/rss/1.0/modules/content/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>cp</p></td>
+<td><p><a class="reference external" href="http://my.theinfo.org/changed/1.0/rss/">http://my.theinfo.org/changed/1.0/rss/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>creativeCommons</p></td>
+<td><p><a class="reference external" href="http://backend.userland.com/creativeCommonsRssModule">http://backend.userland.com/creativeCommonsRssModule</a></p></td>
+</tr>
+<tr class="row-even"><td><p>dc</p></td>
+<td><p><a class="reference external" href="http://purl.org/dc/elements/1.1/">http://purl.org/dc/elements/1.1/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>dcterms</p></td>
+<td><p><a class="reference external" href="http://purl.org/dc/terms/">http://purl.org/dc/terms/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>email</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/email/">http://purl.org/rss/1.0/modules/email/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>ev</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/event/">http://purl.org/rss/1.0/modules/event/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>feedburner</p></td>
+<td><p><a class="reference external" href="http://rssnamespace.org/feedburner/ext/1.0">http://rssnamespace.org/feedburner/ext/1.0</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>fm</p></td>
+<td><p><a class="reference external" href="http://freshmeat.net/rss/fm/">http://freshmeat.net/rss/fm/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>foaf</p></td>
+<td><p><a class="reference external" href="http://xmlns.com/foaf/0.1/">http://xmlns.com/foaf/0.1/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>geo</p></td>
+<td><p><a class="reference external" href="http://www.w3.org/2003/01/geo">http://www.w3.org/2003/01/geo</a>/wgs84_pos#</p></td>
+</tr>
+<tr class="row-even"><td><p>icbm</p></td>
+<td><p><a class="reference external" href="http://postneo.com/icbm/">http://postneo.com/icbm/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>image</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/image/">http://purl.org/rss/1.0/modules/image/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>itunes</p></td>
+<td><p><a class="reference external" href="http://example.com/DTDs/PodCast-1.0.dtd">http://example.com/DTDs/PodCast-1.0.dtd</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>itunes</p></td>
+<td><p><a class="reference external" href="http://www.itunes.com/DTDs/PodCast-1.0.dtd">http://www.itunes.com/DTDs/PodCast-1.0.dtd</a></p></td>
+</tr>
+<tr class="row-even"><td><p>l</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/link/">http://purl.org/rss/1.0/modules/link/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>media</p></td>
+<td><p><a class="reference external" href="http://search.yahoo.com/mrss">http://search.yahoo.com/mrss</a></p></td>
+</tr>
+<tr class="row-even"><td><p>pingback</p></td>
+<td><p><a class="reference external" href="http://madskills.com/public/xml/rss/module/pingback/">http://madskills.com/public/xml/rss/module/pingback/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>prism</p></td>
+<td><p><a class="reference external" href="http://prismstandard.org/namespaces/1.2/basic/">http://prismstandard.org/namespaces/1.2/basic/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>rdf</p></td>
+<td><p><a class="reference external" href="http://www.w3.org/1999/02/22-rdf-syntax">http://www.w3.org/1999/02/22-rdf-syntax</a>-ns#</p></td>
+</tr>
+<tr class="row-odd"><td><p>rdfs</p></td>
+<td><p><a class="reference external" href="http://www.w3.org/2000/01/rdf">http://www.w3.org/2000/01/rdf</a>-schema#</p></td>
+</tr>
+<tr class="row-even"><td><p>ref</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/reference/">http://purl.org/rss/1.0/modules/reference/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>reqv</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/richequiv/">http://purl.org/rss/1.0/modules/richequiv/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>search</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/search/">http://purl.org/rss/1.0/modules/search/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>slash</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/slash/">http://purl.org/rss/1.0/modules/slash/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>soap</p></td>
+<td><p><a class="reference external" href="http://schemas.xmlsoap.org/soap/envelope/">http://schemas.xmlsoap.org/soap/envelope/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>ss</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/servicestatus/">http://purl.org/rss/1.0/modules/servicestatus/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>str</p></td>
+<td><p><a class="reference external" href="http://hacks.benhammersley.com/rss/streaming/">http://hacks.benhammersley.com/rss/streaming/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>sub</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/subscription/">http://purl.org/rss/1.0/modules/subscription/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>sy</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/syndication/">http://purl.org/rss/1.0/modules/syndication/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>szf</p></td>
+<td><p><a class="reference external" href="http://schemas.pocketsoap.com/rss/myDescModule/">http://schemas.pocketsoap.com/rss/myDescModule/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>taxo</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/taxonomy/">http://purl.org/rss/1.0/modules/taxonomy/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>thr</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/threading/">http://purl.org/rss/1.0/modules/threading/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>ti</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/textinput/">http://purl.org/rss/1.0/modules/textinput/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>trackback</p></td>
+<td><p><a class="reference external" href="http://madskills.com/public/xml/rss/module/trackback/">http://madskills.com/public/xml/rss/module/trackback/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>wfw</p></td>
+<td><p><a class="reference external" href="http://wellformedweb.org/CommentAPI/">http://wellformedweb.org/CommentAPI/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>wiki</p></td>
+<td><p><a class="reference external" href="http://purl.org/rss/1.0/modules/wiki/">http://purl.org/rss/1.0/modules/wiki/</a></p></td>
+</tr>
+<tr class="row-even"><td><p>xhtml</p></td>
+<td><p><a class="reference external" href="http://www.w3.org/1999/xhtml">http://www.w3.org/1999/xhtml</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>xlink</p></td>
+<td><p><a class="reference external" href="http://www.w3.org/1999/xlink">http://www.w3.org/1999/xlink</a></p></td>
+</tr>
+<tr class="row-even"><td><p>xml</p></td>
+<td><p><a class="reference external" href="http://www.w3.org/XML/1998/namespace">http://www.w3.org/XML/1998/namespace</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong class="program">Universal Feed Parser</strong> treats namespaces as case-insensitive to
+match the behavior of certain versions of <strong class="program">iTunes</strong>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Data from namespaced elements is not <a class="reference internal" href="html-sanitization.html#advanced-sanitization"><span class="std std-ref">sanitized</span></a>
+(even if it contains <abbr title="HyperText Markup Language">HTML</abbr> markup).</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="advanced.html">Advanced Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="date-parsing.html">Date Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html-sanitization.html">Sanitization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content-normalization.html">Content Normalization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Namespace Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resolving-relative-links.html">Relative Link Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version-detection.html">Feed Type and Version Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="character-encoding.html">Character Encoding Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bozo.html">Bozo Detection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="advanced.html">Advanced Features</a><ul>
+      <li>Previous: <a href="content-normalization.html" title="previous chapter">Content Normalization</a></li>
+      <li>Next: <a href="resolving-relative-links.html" title="next chapter">Relative Link Resolution</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/namespace-handling.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

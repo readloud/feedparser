@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Changes in earlier versions &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference" href="reference.html" />
+    <link rel="prev" title="Changes in version 2.6" href="changes-26.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="changes-in-earlier-versions">
+<h1>Changes in earlier versions<a class="headerlink" href="#changes-in-earlier-versions" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">Universal Feed Parser</strong> began as an “ultra-liberal RSS parser” named <code class="file docutils literal notranslate"><span class="pre">rssparser.py</span></code>.  It was written as a weapon for battles that no one remembers, to work around problems that no longer exist.</p>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.5.3 was released on August 3, 2003.</p>
+<ul class="simple">
+<li><p>track whether we’re inside an image or textInput (TvdV)</p></li>
+<li><p>return the character encoding, if specified</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.5.2 was released on July 28, 2003.</p>
+<ul class="simple">
+<li><p>entity-decode inline <abbr title="Extensible Markup Language">XML</abbr> properly</p></li>
+<li><p>added support for inline &lt;xhtml:body&gt; and &lt;xhtml:div&gt; as used in some <abbr title="Rich Site Summary">RSS</abbr> 2.0 feeds</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.5.1 was released on July 26, 2003.</p>
+<ul class="simple">
+<li><p>clear <code class="docutils literal notranslate"><span class="pre">opener.addheaders</span></code> so we only send our custom <code class="docutils literal notranslate"><span class="pre">User-Agent</span></code> (otherwise <code class="file docutils literal notranslate"><span class="pre">urllib2</span></code> sends two, which confuses some servers) (RMK)</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.5 was released on July 25, 2003.</p>
+<ul class="simple">
+<li><p>changed to <strong class="program">Python</strong> license (all contributors agree)</p></li>
+<li><p>removed unnecessary <code class="file docutils literal notranslate"><span class="pre">&gt;urllib</span></code> code – <code class="file docutils literal notranslate"><span class="pre">urllib2</span></code> should always be available anyway</p></li>
+<li><p>return actual <code class="docutils literal notranslate"><span class="pre">url</span></code>, <code class="docutils literal notranslate"><span class="pre">status</span></code>, and full <abbr title="Hypertext Transfer Protocol">HTTP</abbr> headers (as <code class="docutils literal notranslate"><span class="pre">result['url']</span></code>, <code class="docutils literal notranslate"><span class="pre">result['status']</span></code>, and <code class="docutils literal notranslate"><span class="pre">result['headers']</span></code>) if parsing a remote feed over <abbr title="Hypertext Transfer Protocol">HTTP</abbr>.  This should pass all the <cite>Aggregator client :abbr:`HTTP (Hypertext Transfer Protocol)</cite> tests &lt;<a class="reference external" href="http://diveintomark.org/tests/client/http/">http://diveintomark.org/tests/client/http/</a>&gt;`_.</p></li>
+<li><p>added the latest namespace-of-the-week for <abbr title="Rich Site Summary">RSS</abbr> 2.0</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.4 was released on July 9, 2003.</p>
+<ul class="simple">
+<li><p>added preliminary Pie/Atom/Echo support based on <a class="reference external" href="http://www.intertwingly.net/blog/1506.html">Sam Ruby’s snapshot of July 1</a></p></li>
+<li><p>changed project name</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal RSS Parser</strong> 2.3.1 was released on June 12, 2003.</p>
+<ul class="simple">
+<li><p>if item has both link and guid, return both as-is</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal RSS Parser</strong> 2.3 was released on June 11, 2003.</p>
+<ul class="simple">
+<li><p>added <code class="docutils literal notranslate"><span class="pre">USER_AGENT</span></code> for default (if caller doesn’t specify)</p></li>
+<li><p>make sure we send the <code class="docutils literal notranslate"><span class="pre">User-Agent</span></code> even if <code class="file docutils literal notranslate"><span class="pre">urllib2</span></code> isn’t available</p></li>
+<li><p>Match any variation of <code class="docutils literal notranslate"><span class="pre">backend.userland.com/rss</span></code> namespace</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal RSS Parser</strong> 2.2 was released on January 27, 2003.</p>
+<ul class="simple">
+<li><p>added attribute support and admin:generatorAgent.  start_admingeneratoragent is an example of how to handle elements with only attributes, no content.</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal RSS Parser</strong> 2.1 was released on November 14, 2002.</p>
+<ul class="simple">
+<li><p>added gzip support</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal RSS Parser</strong> 2.0.2 was released on October 21, 2002.</p>
+<ul class="simple">
+<li><p>added the <code class="docutils literal notranslate"><span class="pre">inchannel</span></code> to the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, otherwise it’s useless.  Fixes the problem JD was addressing by adding it. (JB)</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal RSS Parser</strong> 2.0.1 was released on October 21, 2002.</p>
+<ul class="simple">
+<li><p>changed <code class="docutils literal notranslate"><span class="pre">parse()</span></code> so that if we don’t get anything because of <code class="docutils literal notranslate"><span class="pre">etag</span></code>/<code class="docutils literal notranslate"><span class="pre">modified</span></code>, return the old <code class="docutils literal notranslate"><span class="pre">etag</span></code>/<code class="docutils literal notranslate"><span class="pre">modified</span></code> to the caller to indicate why nothing is being returned</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal RSS Parser</strong> 2.0 was released on October 19, 2002.</p>
+<ul class="simple">
+<li><p>use <code class="docutils literal notranslate"><span class="pre">inchannel</span></code> to watch out for image and textinput elements which can also contain title, link, and description elements (JD)</p></li>
+<li><p>check for isPermaLink=’false’ attribute on guid elements (JD)</p></li>
+<li><p>replaced <code class="docutils literal notranslate"><span class="pre">openAnything</span></code> with <code class="docutils literal notranslate"><span class="pre">open_resource</span></code> supporting <code class="docutils literal notranslate"><span class="pre">ETag</span></code> and <code class="docutils literal notranslate"><span class="pre">If-Modified-Since</span></code> request headers (JD)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parse</span></code> now accepts <code class="docutils literal notranslate"><span class="pre">etag</span></code>, <code class="docutils literal notranslate"><span class="pre">modified</span></code>, <code class="docutils literal notranslate"><span class="pre">agent</span></code>, and <code class="docutils literal notranslate"><span class="pre">referrer</span></code> optional arguments (JD)</p></li>
+<li><p>modified <code class="docutils literal notranslate"><span class="pre">parse</span></code> to return a dictionary instead of a tuple so that any <code class="docutils literal notranslate"><span class="pre">etag</span></code> or <code class="docutils literal notranslate"><span class="pre">modified</span></code> information can be returned and cached by the caller</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal RSS Parser</strong> 1.1 was released on September 27, 2002.</p>
+<ul class="simple">
+<li><p>fixed infinite loop on incomplete CDATA sections</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal RSS Parser</strong> 1.0 was released on September 27, 2002.</p>
+<ul class="simple">
+<li><p>fixed namespace processing on prefixed <abbr title="Rich Site Summary">RSS</abbr> 2.0 elements</p></li>
+<li><p>added Simon Fell’s namespace test suite</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal RSS Parser</strong> was first released on August 13, 2002.</p>
+<p><a class="reference external" href="http://diveintomark.org/archives/2002/08/13/ultraliberal_rss_parser">Announcement</a>:</p>
+<blockquote>
+<div><p>Aaron Swartz has been looking for an ultra-liberal <abbr title="Rich Site Summary">RSS</abbr> parser. Now that I’m experimenting with a homegrown <abbr title="Rich Site Summary">RSS</abbr>-to-email news aggregator, so am I. You see, most <abbr title="Rich Site Summary">RSS</abbr> feeds suck. Invalid characters, unescaped ampersands (Blogger feeds), invalid entities (Radio feeds), unescaped and invalid HTML (The Register’s feed most days). Or just a bastardized mix of <abbr title="Rich Site Summary">RSS</abbr> 0.9x elements with <abbr title="Rich Site Summary">RSS</abbr> 1.0 elements (Movable Type feeds).</p>
+<p>Then there are feeds, like Aaron’s feed, which are too bleeding edge. He puts an excerpt in the description element but puts the full text in the content:encoded element (as CDATA). This is valid <abbr title="Rich Site Summary">RSS</abbr> 1.0, but nobody actually uses it (except Aaron), few news aggregators support it, and many parsers choke on it. Other parsers are confused by the new elements (guid) in <abbr title="Rich Site Summary">RSS</abbr> 0.94 (see Dave Winer’s feed for an example). And then there’s Jon Udell’s feed, with the fullitem element that he just sort of made up.</p>
+<p><code class="file docutils literal notranslate"><span class="pre">rssparser.py</span></code>. GPL-licensed. Tested on 5000 active feeds.</p>
+</div></blockquote>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="history.html">Revision history</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="changes-42.html">Changes in version 4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-41.html">Changes in version 4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-402.html">Changes in version 4.0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-401.html">Changes in version 4.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-40.html">Changes in version 4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-33.html">Changes in version 3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-32.html">Changes in version 3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-31.html">Changes in version 3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-301.html">Changes in version 3.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-30.html">Changes in version 3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-27.html">Changes in version 2.7.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-26.html">Changes in version 2.6</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Changes in earlier versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="history.html">Revision history</a><ul>
+      <li>Previous: <a href="changes-26.html" title="previous chapter">Changes in version 2.6</a></li>
+      <li>Next: <a href="reference.html" title="next chapter">Reference</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/changes-early.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Changes in version 2.7.x &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changes in version 2.6" href="changes-26.html" />
+    <link rel="prev" title="Changes in version 3.0" href="changes-30.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="changes-in-version-2-7-x">
+<h1>Changes in version 2.7.x<a class="headerlink" href="#changes-in-version-2-7-x" title="Permalink to this headline">¶</a></h1>
+<p>The 2.7 series was a brief but necessary transition towards some of the core ideas in version 3.0.</p>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.7.6 was released on January 16, 2004.</p>
+<ul class="simple">
+<li><p>fixed bug with <code class="file docutils literal notranslate"><span class="pre">StringIO</span></code> importing</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.7.5 was released on January 15, 2004.</p>
+<ul class="simple">
+<li><p>added workaround for malformed DOCTYPE (seen on many <code class="docutils literal notranslate"><span class="pre">blogspot.com</span></code> sites)</p></li>
+<li><p>added <code class="docutils literal notranslate"><span class="pre">_debug</span></code> variable</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.7.4 was released on January 14, 2004.</p>
+<ul class="simple">
+<li><p>added workaround for improperly formed &lt;br/&gt; tags in encoded <abbr title="HyperText Markup Language">HTML</abbr> (skadz)</p></li>
+<li><p>fixed unicode handling in normalize_attrs (ChrisL)</p></li>
+<li><p>fixed relative <abbr title="Uniform Resource Identifier">URI</abbr> processing for guid (skadz)</p></li>
+<li><p>added ICBM support</p></li>
+<li><p>added <code class="file docutils literal notranslate"><span class="pre">base64</span></code> support</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.7.3 was released on January 14, 2004.</p>
+<ul class="simple">
+<li><p>reverted all changes made in 2.7.2</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.7.2 was released on January 13, 2004.</p>
+<ul class="simple">
+<li><p>“Version 2.7.2 of my feed parser, released today, will by default refuse to parse <a class="reference external" href="http://intertwingly.net/stories/2004/01/12/broken.rss">this feed</a>.  It does a first-pass check for wellformedness, and when that fails it sets the ‘bozo’ bit in the result to <code class="docutils literal notranslate"><span class="pre">1</span></code> and immediately terminates.  You can revert to the previous behavior by passing <code class="docutils literal notranslate"><span class="pre">disableWellFormedCheck=1</span></code>, but it will print arrogant warning messages to stderr to the effect that anyone who can’t create a well-formed <abbr title="Extensible Markup Language">XML</abbr> feed is a bozo and an incompetent fool.” <a class="reference external" href="http://intertwingly.net/blog/2004/01/12/Scientific-Method#c1074047818">source</a></p></li>
+</ul>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.7.1 was released on January 9, 2004.</p>
+<ul class="simple">
+<li><p>fixed bug handling &amp;quot; and &amp;apos;</p></li>
+<li><p>fixed memory leak not closing url opener (JohnD)</p></li>
+<li><p>added dc:publisher support (MarekK)</p></li>
+<li><p>added admin:errorReportsTo support (MarekK)</p></li>
+<li><p><strong class="program">Python</strong> 2.1 <code class="docutils literal notranslate"><span class="pre">dict</span></code> support (MarekK)</p></li>
+</ul>
+<p><strong class="program">Ultra-liberal Feed Parser</strong> 2.7 was released on January 5, 2004.</p>
+<ul class="simple">
+<li><p>really added support for trackback and pingback namespaces, as opposed to 2.6 when I said I did but didn’t really</p></li>
+<li><p>sanitize <abbr title="HyperText Markup Language">HTML</abbr> markup within some elements</p></li>
+<li><p>added <code class="file docutils literal notranslate"><span class="pre">mxTidy</span></code> support (if installed) to tidy <abbr title="HyperText Markup Language">HTML</abbr> markup within some elements</p></li>
+<li><p>fixed indentation bug in <code class="docutils literal notranslate"><span class="pre">_parse_date</span></code> (FazalM)</p></li>
+<li><p>use <code class="docutils literal notranslate"><span class="pre">socket.setdefaulttimeout</span></code> if available (FazalM)</p></li>
+<li><p>universal date parsing and normalization (FazalM): <code class="docutils literal notranslate"><span class="pre">created</span></code>, <code class="docutils literal notranslate"><span class="pre">modified</span></code>, <code class="docutils literal notranslate"><span class="pre">issued</span></code> are parsed into 9-tuple date format and stored in <code class="docutils literal notranslate"><span class="pre">created_parsed</span></code>, <code class="docutils literal notranslate"><span class="pre">modified_parsed</span></code>, and <code class="docutils literal notranslate"><span class="pre">issued_parsed</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">date</span></code> is duplicated in <code class="docutils literal notranslate"><span class="pre">modified</span></code> and vice-versa</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">date_parsed</span></code> is duplicated in <code class="docutils literal notranslate"><span class="pre">modified_parsed</span></code> and vice-versa</p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="history.html">Revision history</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="changes-42.html">Changes in version 4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-41.html">Changes in version 4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-402.html">Changes in version 4.0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-401.html">Changes in version 4.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-40.html">Changes in version 4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-33.html">Changes in version 3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-32.html">Changes in version 3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-31.html">Changes in version 3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-301.html">Changes in version 3.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-30.html">Changes in version 3.0</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Changes in version 2.7.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-26.html">Changes in version 2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-early.html">Changes in earlier versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="history.html">Revision history</a><ul>
+      <li>Previous: <a href="changes-30.html" title="previous chapter">Changes in version 3.0</a></li>
+      <li>Next: <a href="changes-26.html" title="next chapter">Changes in version 2.6</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/changes-27.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

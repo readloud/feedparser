@@ -1,0 +1,910 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Sanitization &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Content Normalization" href="content-normalization.html" />
+    <link rel="prev" title="Date Parsing" href="date-parsing.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sanitization">
+<span id="advanced-sanitization"></span><h1>Sanitization<a class="headerlink" href="#sanitization" title="Permalink to this headline">¶</a></h1>
+<p>Most feeds embed <abbr title="HyperText Markup Language">HTML</abbr> markup within feed
+elements.  Some feeds even embed other types of markup, such as <abbr title="Scalable Vector Graphics">SVG</abbr> or <abbr title="Mathematical Markup Language">MathML</abbr>.
+Since many feed aggregators use a web browser (or browser component) to display
+content, <strong class="program">Universal Feed Parser</strong> sanitizes embedded markup to remove
+things that could pose security risks.</p>
+<p>These elements are sanitized by default:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference-entry-content.html#reference-entry-content"><span class="std std-ref">entries[i].content</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-summary.html#reference-entry-summary"><span class="std std-ref">entries[i].summary</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-title.html#reference-entry-title"><span class="std std-ref">entries[i].title</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-info.html#reference-feed-info"><span class="std std-ref">feed.info</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-rights.html#reference-feed-rights"><span class="std std-ref">feed.rights</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-subtitle.html#reference-feed-subtitle"><span class="std std-ref">feed.subtitle</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-title.html#reference-feed-title"><span class="std std-ref">feed.title</span></a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the content is declared to be (or is determined to be)
+<em class="mimetype">text/plain</em>, it will not be sanitized. This is to avoid data loss.
+It is recommended that you check the content type in e.g.
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].summary_detail.type</span></code>. If it is <em class="mimetype">text/plain</em> then
+it has not been sanitized (and you should perform HTML escaping before
+rendering the content).</p>
+</div>
+<section id="html-sanitization">
+<span id="advanced-sanitization-html"></span><h2><abbr title="HyperText Markup Language">HTML</abbr> Sanitization<a class="headerlink" href="#html-sanitization" title="Permalink to this headline">¶</a></h2>
+<p>The following <abbr title="HyperText Markup Language">HTML</abbr> elements are allowed by
+default (all others are stripped):</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p>a</p></li>
+<li><p>abbr</p></li>
+<li><p>acronym</p></li>
+<li><p>address</p></li>
+<li><p>area</p></li>
+<li><p>article</p></li>
+<li><p>aside</p></li>
+<li><p>audio</p></li>
+<li><p>b</p></li>
+<li><p>big</p></li>
+<li><p>blockquote</p></li>
+<li><p>br</p></li>
+<li><p>button</p></li>
+<li><p>canvas</p></li>
+<li><p>caption</p></li>
+<li><p>center</p></li>
+<li><p>cite</p></li>
+<li><p>code</p></li>
+<li><p>col</p></li>
+<li><p>colgroup</p></li>
+<li><p>command</p></li>
+<li><p>datagrid</p></li>
+<li><p>datalist</p></li>
+<li><p>dd</p></li>
+<li><p>del</p></li>
+<li><p>details</p></li>
+<li><p>dfn</p></li>
+<li><p>dialog</p></li>
+<li><p>dir</p></li>
+<li><p>div</p></li>
+<li><p>dl</p></li>
+<li><p>dt</p></li>
+<li><p>em</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>event-source</p></li>
+<li><p>fieldset</p></li>
+<li><p>figure</p></li>
+<li><p>font</p></li>
+<li><p>footer</p></li>
+<li><p>form</p></li>
+<li><p>h1</p></li>
+<li><p>h2</p></li>
+<li><p>h3</p></li>
+<li><p>h4</p></li>
+<li><p>h5</p></li>
+<li><p>h6</p></li>
+<li><p>header</p></li>
+<li><p>hr</p></li>
+<li><p>i</p></li>
+<li><p>img</p></li>
+<li><p>input</p></li>
+<li><p>ins</p></li>
+<li><p>kbd</p></li>
+<li><p>keygen</p></li>
+<li><p>label</p></li>
+<li><p>legend</p></li>
+<li><p>li</p></li>
+<li><p>m</p></li>
+<li><p>map</p></li>
+<li><p>menu</p></li>
+<li><p>meter</p></li>
+<li><p>multicol</p></li>
+<li><p>nav</p></li>
+<li><p>nextid</p></li>
+<li><p>noscript</p></li>
+<li><p>ol</p></li>
+<li><p>optgroup</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>option</p></li>
+<li><p>output</p></li>
+<li><p>p</p></li>
+<li><p>pre</p></li>
+<li><p>progress</p></li>
+<li><p>q</p></li>
+<li><p>s</p></li>
+<li><p>samp</p></li>
+<li><p>section</p></li>
+<li><p>select</p></li>
+<li><p>small</p></li>
+<li><p>sound</p></li>
+<li><p>source</p></li>
+<li><p>spacer</p></li>
+<li><p>span</p></li>
+<li><p>strike</p></li>
+<li><p>strong</p></li>
+<li><p>sub</p></li>
+<li><p>sup</p></li>
+<li><p>table</p></li>
+<li><p>tbody</p></li>
+<li><p>td</p></li>
+<li><p>textarea</p></li>
+<li><p>tfoot</p></li>
+<li><p>th</p></li>
+<li><p>thead</p></li>
+<li><p>time</p></li>
+<li><p>tr</p></li>
+<li><p>tt</p></li>
+<li><p>u</p></li>
+<li><p>ul</p></li>
+<li><p>var</p></li>
+<li><p>video</p></li>
+</ul>
+</td></tr></table>
+<p>The following <abbr title="HyperText Markup Language">HTML</abbr> attributes are allowed
+by default (all others are stripped):</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p>abbr</p></li>
+<li><p>accept</p></li>
+<li><p>accept-charset</p></li>
+<li><p>accesskey</p></li>
+<li><p>action</p></li>
+<li><p>align</p></li>
+<li><p>alt</p></li>
+<li><p>autocomplete</p></li>
+<li><p>autofocus</p></li>
+<li><p>autoplay</p></li>
+<li><p>axis</p></li>
+<li><p>background</p></li>
+<li><p>balance</p></li>
+<li><p>bgcolor</p></li>
+<li><p>bgproperties</p></li>
+<li><p>border</p></li>
+<li><p>bordercolor</p></li>
+<li><p>bordercolordark</p></li>
+<li><p>bordercolorlight</p></li>
+<li><p>bottompadding</p></li>
+<li><p>cellpadding</p></li>
+<li><p>cellspacing</p></li>
+<li><p>ch</p></li>
+<li><p>challenge</p></li>
+<li><p>char</p></li>
+<li><p>charoff</p></li>
+<li><p>charset</p></li>
+<li><p>checked</p></li>
+<li><p>choff</p></li>
+<li><p>cite</p></li>
+<li><p>class</p></li>
+<li><p>clear</p></li>
+<li><p>color</p></li>
+<li><p>cols</p></li>
+<li><p>colspan</p></li>
+<li><p>compact</p></li>
+<li><p>contenteditable</p></li>
+<li><p>coords</p></li>
+<li><p>data</p></li>
+<li><p>datafld</p></li>
+<li><p>datapagesize</p></li>
+<li><p>datasrc</p></li>
+<li><p>datetime</p></li>
+<li><p>default</p></li>
+<li><p>delay</p></li>
+<li><p>dir</p></li>
+<li><p>disabled</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>draggable</p></li>
+<li><p>dynsrc</p></li>
+<li><p>enctype</p></li>
+<li><p>end</p></li>
+<li><p>face</p></li>
+<li><p>for</p></li>
+<li><p>form</p></li>
+<li><p>frame</p></li>
+<li><p>galleryimg</p></li>
+<li><p>gutter</p></li>
+<li><p>headers</p></li>
+<li><p>height</p></li>
+<li><p>hidden</p></li>
+<li><p>hidefocus</p></li>
+<li><p>high</p></li>
+<li><p>href</p></li>
+<li><p>hreflang</p></li>
+<li><p>hspace</p></li>
+<li><p>icon</p></li>
+<li><p>id</p></li>
+<li><p>inputmode</p></li>
+<li><p>ismap</p></li>
+<li><p>keytype</p></li>
+<li><p>label</p></li>
+<li><p>lang</p></li>
+<li><p>leftspacing</p></li>
+<li><p>list</p></li>
+<li><p>longdesc</p></li>
+<li><p>loop</p></li>
+<li><p>loopcount</p></li>
+<li><p>loopend</p></li>
+<li><p>loopstart</p></li>
+<li><p>low</p></li>
+<li><p>lowsrc</p></li>
+<li><p>max</p></li>
+<li><p>maxlength</p></li>
+<li><p>media</p></li>
+<li><p>method</p></li>
+<li><p>min</p></li>
+<li><p>multiple</p></li>
+<li><p>name</p></li>
+<li><p>nohref</p></li>
+<li><p>noshade</p></li>
+<li><p>nowrap</p></li>
+<li><p>open</p></li>
+<li><p>optimum</p></li>
+<li><p>pattern</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>ping</p></li>
+<li><p>point-size</p></li>
+<li><p>poster</p></li>
+<li><p>pqg</p></li>
+<li><p>preload</p></li>
+<li><p>prompt</p></li>
+<li><p>radiogroup</p></li>
+<li><p>readonly</p></li>
+<li><p>rel</p></li>
+<li><p>repeat-max</p></li>
+<li><p>repeat-min</p></li>
+<li><p>replace</p></li>
+<li><p>required</p></li>
+<li><p>rev</p></li>
+<li><p>rightspacing</p></li>
+<li><p>rows</p></li>
+<li><p>rowspan</p></li>
+<li><p>rules</p></li>
+<li><p>scope</p></li>
+<li><p>selected</p></li>
+<li><p>shape</p></li>
+<li><p>size</p></li>
+<li><p>span</p></li>
+<li><p>src</p></li>
+<li><p>start</p></li>
+<li><p>step</p></li>
+<li><p>summary</p></li>
+<li><p>suppress</p></li>
+<li><p>tabindex</p></li>
+<li><p>target</p></li>
+<li><p>template</p></li>
+<li><p>title</p></li>
+<li><p>toppadding</p></li>
+<li><p>type</p></li>
+<li><p>unselectable</p></li>
+<li><p>urn</p></li>
+<li><p>usemap</p></li>
+<li><p>valign</p></li>
+<li><p>value</p></li>
+<li><p>variable</p></li>
+<li><p>volume</p></li>
+<li><p>vrml</p></li>
+<li><p>vspace</p></li>
+<li><p>width</p></li>
+<li><p>wrap</p></li>
+<li><p>xml:lang</p></li>
+</ul>
+</td></tr></table>
+</section>
+<section id="svg-sanitization">
+<span id="advanced-sanitization-svg"></span><h2><abbr title="Scalable Vector Graphics">SVG</abbr> Sanitization<a class="headerlink" href="#svg-sanitization" title="Permalink to this headline">¶</a></h2>
+<p>The following SVG elements are allowed by default (all others are stripped):</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p>a</p></li>
+<li><p>animate</p></li>
+<li><p>animateColor</p></li>
+<li><p>animateMotion</p></li>
+<li><p>animateTransform</p></li>
+<li><p>circle</p></li>
+<li><p>defs</p></li>
+<li><p>desc</p></li>
+<li><p>ellipse</p></li>
+<li><p>font-face</p></li>
+<li><p>font-face-name</p></li>
+<li><p>font-face-src</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>foreignObject</p></li>
+<li><p>g</p></li>
+<li><p>glyph</p></li>
+<li><p>hkern</p></li>
+<li><p>line</p></li>
+<li><p>linearGradient</p></li>
+<li><p>marker</p></li>
+<li><p>metadata</p></li>
+<li><p>missing-glyph</p></li>
+<li><p>mpath</p></li>
+<li><p>path</p></li>
+<li><p>polygon</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>polyline</p></li>
+<li><p>radialGradient</p></li>
+<li><p>rect</p></li>
+<li><p>set</p></li>
+<li><p>stop</p></li>
+<li><p>svg</p></li>
+<li><p>switch</p></li>
+<li><p>text</p></li>
+<li><p>title</p></li>
+<li><p>tspan</p></li>
+<li><p>use</p></li>
+</ul>
+</td></tr></table>
+<p>The following <abbr title="Scalable Vector Graphics">SVG</abbr> attributes are allowed by
+default (all others are stripped):</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p>accent-height</p></li>
+<li><p>accumulate</p></li>
+<li><p>additive</p></li>
+<li><p>alphabetic</p></li>
+<li><p>arabic-form</p></li>
+<li><p>ascent</p></li>
+<li><p>attributeName</p></li>
+<li><p>attributeType</p></li>
+<li><p>baseProfile</p></li>
+<li><p>bbox</p></li>
+<li><p>begin</p></li>
+<li><p>by</p></li>
+<li><p>calcMode</p></li>
+<li><p>cap-height</p></li>
+<li><p>class</p></li>
+<li><p>color</p></li>
+<li><p>color-rendering</p></li>
+<li><p>content</p></li>
+<li><p>cx</p></li>
+<li><p>cy</p></li>
+<li><p>d</p></li>
+<li><p>descent</p></li>
+<li><p>display</p></li>
+<li><p>dur</p></li>
+<li><p>dx</p></li>
+<li><p>dy</p></li>
+<li><p>end</p></li>
+<li><p>fill</p></li>
+<li><p>fill-opacity</p></li>
+<li><p>fill-rule</p></li>
+<li><p>font-family</p></li>
+<li><p>font-size</p></li>
+<li><p>font-stretch</p></li>
+<li><p>font-style</p></li>
+<li><p>font-variant</p></li>
+<li><p>font-weight</p></li>
+<li><p>from</p></li>
+<li><p>fx</p></li>
+<li><p>fy</p></li>
+<li><p>g1</p></li>
+<li><p>g2</p></li>
+<li><p>glyph-name</p></li>
+<li><p>gradientUnits</p></li>
+<li><p>hanging</p></li>
+<li><p>height</p></li>
+<li><p>horiz-adv-x</p></li>
+<li><p>horiz-origin-x</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>id</p></li>
+<li><p>ideographic</p></li>
+<li><p>k</p></li>
+<li><p>keyPoints</p></li>
+<li><p>keySplines</p></li>
+<li><p>keyTimes</p></li>
+<li><p>lang</p></li>
+<li><p>marker-end</p></li>
+<li><p>marker-mid</p></li>
+<li><p>marker-start</p></li>
+<li><p>markerHeight</p></li>
+<li><p>markerUnits</p></li>
+<li><p>markerWidth</p></li>
+<li><p>mathematical</p></li>
+<li><p>max</p></li>
+<li><p>min</p></li>
+<li><p>name</p></li>
+<li><p>offset</p></li>
+<li><p>opacity</p></li>
+<li><p>orient</p></li>
+<li><p>origin</p></li>
+<li><p>overline-position</p></li>
+<li><p>overline-thickness</p></li>
+<li><p>panose-1</p></li>
+<li><p>path</p></li>
+<li><p>pathLength</p></li>
+<li><p>points</p></li>
+<li><p>preserveAspectRatio</p></li>
+<li><p>r</p></li>
+<li><p>refX</p></li>
+<li><p>refY</p></li>
+<li><p>repeatCount</p></li>
+<li><p>repeatDur</p></li>
+<li><p>requiredExtensions</p></li>
+<li><p>requiredFeatures</p></li>
+<li><p>restart</p></li>
+<li><p>rotate</p></li>
+<li><p>rx</p></li>
+<li><p>ry</p></li>
+<li><p>slope</p></li>
+<li><p>stemh</p></li>
+<li><p>stemv</p></li>
+<li><p>stop-color</p></li>
+<li><p>stop-opacity</p></li>
+<li><p>strikethrough-position</p></li>
+<li><p>strikethrough-thickness</p></li>
+<li><p>stroke</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>stroke-dasharray</p></li>
+<li><p>stroke-dashoffset</p></li>
+<li><p>stroke-linecap</p></li>
+<li><p>stroke-linejoin</p></li>
+<li><p>stroke-miterlimit</p></li>
+<li><p>stroke-opacity</p></li>
+<li><p>stroke-width</p></li>
+<li><p>systemLanguage</p></li>
+<li><p>target</p></li>
+<li><p>text-anchor</p></li>
+<li><p>to</p></li>
+<li><p>transform</p></li>
+<li><p>type</p></li>
+<li><p>u1</p></li>
+<li><p>u2</p></li>
+<li><p>underline-position</p></li>
+<li><p>underline-thickness</p></li>
+<li><p>unicode</p></li>
+<li><p>unicode-range</p></li>
+<li><p>units-per-em</p></li>
+<li><p>values</p></li>
+<li><p>version</p></li>
+<li><p>viewBox</p></li>
+<li><p>visibility</p></li>
+<li><p>width</p></li>
+<li><p>widths</p></li>
+<li><p>x</p></li>
+<li><p>x-height</p></li>
+<li><p>x1</p></li>
+<li><p>x2</p></li>
+<li><p>xlink:actuate</p></li>
+<li><p>xlink:arcrole</p></li>
+<li><p>xlink:href</p></li>
+<li><p>xlink:role</p></li>
+<li><p>xlink:show</p></li>
+<li><p>xlink:title</p></li>
+<li><p>xlink:type</p></li>
+<li><p>xml:base</p></li>
+<li><p>xml:lang</p></li>
+<li><p>xml:space</p></li>
+<li><p>xmlns</p></li>
+<li><p>xmlns:xlink</p></li>
+<li><p>y</p></li>
+<li><p>y1</p></li>
+<li><p>y2</p></li>
+<li><p>zoomAndPan</p></li>
+</ul>
+</td></tr></table>
+</section>
+<section id="mathml-sanitization">
+<span id="advanced-sanitization-mathml"></span><h2><abbr title="Mathematical Markup Language">MathML</abbr> Sanitization<a class="headerlink" href="#mathml-sanitization" title="Permalink to this headline">¶</a></h2>
+<p>The following <abbr title="Mathematical Markup Language">MathML</abbr> elements are
+allowed by default (all others are stripped):</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p>annotation</p></li>
+<li><p>annotation-xml</p></li>
+<li><p>maction</p></li>
+<li><p>maligngroup</p></li>
+<li><p>malignmark</p></li>
+<li><p>math</p></li>
+<li><p>menclose</p></li>
+<li><p>merror</p></li>
+<li><p>mfenced</p></li>
+<li><p>mfrac</p></li>
+<li><p>mglyph</p></li>
+<li><p>mi</p></li>
+<li><p>mlabeledtr</p></li>
+<li><p>mlongdiv</p></li>
+<li><p>mmultiscripts</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>mn</p></li>
+<li><p>mo</p></li>
+<li><p>mover</p></li>
+<li><p>mpadded</p></li>
+<li><p>mphantom</p></li>
+<li><p>mprescripts</p></li>
+<li><p>mroot</p></li>
+<li><p>mrow</p></li>
+<li><p>ms</p></li>
+<li><p>mscarries</p></li>
+<li><p>mscarry</p></li>
+<li><p>msgroup</p></li>
+<li><p>msline</p></li>
+<li><p>mspace</p></li>
+<li><p>msqrt</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>msrow</p></li>
+<li><p>mstack</p></li>
+<li><p>mstyle</p></li>
+<li><p>msub</p></li>
+<li><p>msubsup</p></li>
+<li><p>msup</p></li>
+<li><p>mtable</p></li>
+<li><p>mtd</p></li>
+<li><p>mtext</p></li>
+<li><p>mtr</p></li>
+<li><p>munder</p></li>
+<li><p>munderover</p></li>
+<li><p>none</p></li>
+<li><p>semantics</p></li>
+</ul>
+</td></tr></table>
+<p>The following <abbr title="Mathematical Markup Language">MathML</abbr> attributes are
+allowed by default (all others are stripped):</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p>accent</p></li>
+<li><p>accentunder</p></li>
+<li><p>actiontype</p></li>
+<li><p>align</p></li>
+<li><p>alignmentscope</p></li>
+<li><p>altimg</p></li>
+<li><p>altimg-height</p></li>
+<li><p>altimg-valign</p></li>
+<li><p>altimg-width</p></li>
+<li><p>alttext</p></li>
+<li><p>bevelled</p></li>
+<li><p>charalign</p></li>
+<li><p>close</p></li>
+<li><p>columnalign</p></li>
+<li><p>columnlines</p></li>
+<li><p>columnspacing</p></li>
+<li><p>columnspan</p></li>
+<li><p>columnwidth</p></li>
+<li><p>crossout</p></li>
+<li><p>decimalpoint</p></li>
+<li><p>denomalign</p></li>
+<li><p>depth</p></li>
+<li><p>dir</p></li>
+<li><p>display</p></li>
+<li><p>displaystyle</p></li>
+<li><p>edge</p></li>
+<li><p>encoding</p></li>
+<li><p>equalcolumns</p></li>
+<li><p>equalrows</p></li>
+<li><p>fence</p></li>
+<li><p>fontstyle</p></li>
+<li><p>fontweight</p></li>
+<li><p>form</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>frame</p></li>
+<li><p>framespacing</p></li>
+<li><p>groupalign</p></li>
+<li><p>height</p></li>
+<li><p>href</p></li>
+<li><p>id</p></li>
+<li><p>indentalign</p></li>
+<li><p>indentalignfirst</p></li>
+<li><p>indentalignlast</p></li>
+<li><p>indentshift</p></li>
+<li><p>indentshiftfirst</p></li>
+<li><p>indentshiftlast</p></li>
+<li><p>indenttarget</p></li>
+<li><p>infixlinebreakstyle</p></li>
+<li><p>largeop</p></li>
+<li><p>length</p></li>
+<li><p>linebreak</p></li>
+<li><p>linebreakmultchar</p></li>
+<li><p>linebreakstyle</p></li>
+<li><p>lineleading</p></li>
+<li><p>linethickness</p></li>
+<li><p>location</p></li>
+<li><p>longdivstyle</p></li>
+<li><p>lquote</p></li>
+<li><p>lspace</p></li>
+<li><p>mathbackground</p></li>
+<li><p>mathcolor</p></li>
+<li><p>mathsize</p></li>
+<li><p>mathvariant</p></li>
+<li><p>maxsize</p></li>
+<li><p>minlabelspacing</p></li>
+<li><p>minsize</p></li>
+<li><p>movablelimits</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>notation</p></li>
+<li><p>numalign</p></li>
+<li><p>open</p></li>
+<li><p>other</p></li>
+<li><p>overflow</p></li>
+<li><p>position</p></li>
+<li><p>rowalign</p></li>
+<li><p>rowlines</p></li>
+<li><p>rowspacing</p></li>
+<li><p>rowspan</p></li>
+<li><p>rquote</p></li>
+<li><p>rspace</p></li>
+<li><p>scriptlevel</p></li>
+<li><p>scriptminsize</p></li>
+<li><p>scriptsizemultiplier</p></li>
+<li><p>selection</p></li>
+<li><p>separator</p></li>
+<li><p>separators</p></li>
+<li><p>shift</p></li>
+<li><p>side</p></li>
+<li><p>src</p></li>
+<li><p>stackalign</p></li>
+<li><p>stretchy</p></li>
+<li><p>subscriptshift</p></li>
+<li><p>superscriptshift</p></li>
+<li><p>symmetric</p></li>
+<li><p>voffset</p></li>
+<li><p>width</p></li>
+<li><p>xlink:href</p></li>
+<li><p>xlink:show</p></li>
+<li><p>xlink:type</p></li>
+<li><p>xmlns</p></li>
+<li><p>xmlns:xlink</p></li>
+</ul>
+</td></tr></table>
+</section>
+<section id="css-sanitization">
+<span id="advanced-sanitization-css"></span><h2><abbr title="Cascading Style Sheets">CSS</abbr> Sanitization<a class="headerlink" href="#css-sanitization" title="Permalink to this headline">¶</a></h2>
+<p>The following <abbr title="Cascading Style Sheets">CSS</abbr> properties are allowed by
+default in style attributes (all others are stripped):</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p>azimuth</p></li>
+<li><p>background-color</p></li>
+<li><p>border-bottom-color</p></li>
+<li><p>border-collapse</p></li>
+<li><p>border-color</p></li>
+<li><p>border-left-color</p></li>
+<li><p>border-right-color</p></li>
+<li><p>border-top-color</p></li>
+<li><p>clear</p></li>
+<li><p>color</p></li>
+<li><p>cursor</p></li>
+<li><p>direction</p></li>
+<li><p>display</p></li>
+<li><p>elevation</p></li>
+<li><p>float</p></li>
+<li><p>font</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>font-family</p></li>
+<li><p>font-size</p></li>
+<li><p>font-style</p></li>
+<li><p>font-variant</p></li>
+<li><p>font-weight</p></li>
+<li><p>height</p></li>
+<li><p>letter-spacing</p></li>
+<li><p>line-height</p></li>
+<li><p>overflow</p></li>
+<li><p>pause</p></li>
+<li><p>pause-after</p></li>
+<li><p>pause-before</p></li>
+<li><p>pitch</p></li>
+<li><p>pitch-range</p></li>
+<li><p>richness</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>speak</p></li>
+<li><p>speak-header</p></li>
+<li><p>speak-numeral</p></li>
+<li><p>speak-punctuation</p></li>
+<li><p>speech-rate</p></li>
+<li><p>stress</p></li>
+<li><p>text-align</p></li>
+<li><p>text-decoration</p></li>
+<li><p>text-indent</p></li>
+<li><p>unicode-bidi</p></li>
+<li><p>vertical-align</p></li>
+<li><p>voice-family</p></li>
+<li><p>volume</p></li>
+<li><p>white-space</p></li>
+<li><p>width</p></li>
+</ul>
+</td></tr></table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not all possible CSS values are allowed for these properties.  The
+allowable values are restricted by a whitelist and a regular expression that
+allows color values and lengths.  <abbr title="Uniform Resource Identifier">URI</abbr>s
+are not allowed, to prevent <a class="reference external" href="http://diveintomark.org/archives/2003/06/12/how_to_consume_rss_safely">platypus attacks</a>.
+See the _HTMLSanitizer class for more details.</p>
+</div>
+</section>
+<section id="whitelist-don-t-blacklist">
+<h2>Whitelist, Don’t Blacklist<a class="headerlink" href="#whitelist-don-t-blacklist" title="Permalink to this headline">¶</a></h2>
+<p>I am often asked why <strong class="program">Universal Feed Parser</strong> is so hard-assed about
+<abbr title="HyperText Markup Language">HTML</abbr> and <abbr title="Cascading Style Sheets">CSS</abbr> sanitizing.  To illustrate the problem, here is an incomplete list of
+potentially dangerous <abbr title="HyperText Markup Language">HTML</abbr> tags and
+attributes:</p>
+<ul class="simple">
+<li><p>script, which can contain malicious script</p></li>
+<li><p>applet, embed, and object, which can automatically download and execute malicious code</p></li>
+<li><p>meta, which can contain malicious redirects</p></li>
+<li><p>onload, onunload, and all other on* attributes, which can contain malicious script</p></li>
+<li><p>style, link, and the style attribute, which can contain malicious script</p></li>
+</ul>
+<p><em>style?</em> Yes, style. <abbr title="Cascading Style Sheets">CSS</abbr> definitions can contain executable code.</p>
+<section id="embedding-javascript-in-css">
+<h3>Embedding Javascript in <abbr title="Cascading Style Sheets">CSS</abbr><a class="headerlink" href="#embedding-javascript-in-css" title="Permalink to this headline">¶</a></h3>
+<p>This sample is taken from <a class="reference external" href="http://feedparser.org/docs/examples/rss20.xml">http://feedparser.org/docs/examples/rss20.xml</a>:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">description</span><span class="p">&gt;</span>Watch out for
+<span class="ni">&amp;lt;</span>span style=&quot;background: url(javascript:window.location=&#39;http://example.org/&#39;)&quot;<span class="ni">&amp;gt;</span>
+nasty tricks<span class="ni">&amp;lt;</span>/span<span class="ni">&amp;gt;</span><span class="p">&lt;/</span><span class="nt">description</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>This sample is more advanced, and does not contain the keyword javascript: that
+many naive <abbr title="HyperText Markup Language">HTML</abbr> sanitizers scan for:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">description</span><span class="p">&gt;</span>Watch out for
+<span class="ni">&amp;lt;</span>span style=&quot;any: expression(window.location=&#39;http://example.org/&#39;)&quot;<span class="ni">&amp;gt;</span>
+nasty tricks<span class="ni">&amp;lt;</span>/span<span class="ni">&amp;gt;</span><span class="p">&lt;/</span><span class="nt">description</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Internet Explorer for Windows will execute the Javascript in both of these examples.</p>
+<p>Now consider that in <abbr title="HyperText Markup Language">HTML</abbr>, attribute values may be entity-encoded in several different ways.</p>
+</section>
+<section id="embedding-encoded-javascript-in-css">
+<h3>Embedding encoded Javascript in <abbr title="Cascading Style Sheets">CSS</abbr><a class="headerlink" href="#embedding-encoded-javascript-in-css" title="Permalink to this headline">¶</a></h3>
+<p>To a browser, this:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;any: expression(window.location=&#39;http://example.org/&#39;)&quot;</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>is the same as this (without the line breaks):</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;&amp;#97;&amp;#110;&amp;#121;&amp;#58;&amp;#32;&amp;#101;&amp;#120;&amp;#112;&amp;#114;&amp;#101;</span>
+<span class="s">&amp;#115;&amp;#115;&amp;#105;&amp;#111;&amp;#110;&amp;#40;&amp;#119;&amp;#105;&amp;#110;&amp;#100;&amp;#111;&amp;#119;</span>
+<span class="s">&amp;#46;&amp;#108;&amp;#111;&amp;#99;&amp;#97;&amp;#116;&amp;#105;&amp;#111;&amp;#110;&amp;#61;&amp;#39;&amp;#104;</span>
+<span class="s">&amp;#116;&amp;#116;&amp;#112;&amp;#58;&amp;#47;&amp;#47;&amp;#101;&amp;#120;&amp;#97;&amp;#109;&amp;#112;&amp;#108;</span>
+<span class="s">&amp;#101;&amp;#46;&amp;#111;&amp;#114;&amp;#103;&amp;#47;&amp;#39;&amp;#41;&quot;</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>which is the same as this (without the line breaks):</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;&amp;#x61;&amp;#x6e;&amp;#x79;&amp;#x3a;&amp;#x20;&amp;#x65;&amp;#x78;&amp;#x70;&amp;#x72;</span>
+<span class="s">&amp;#x65;&amp;#x73;&amp;#x73;&amp;#x69;&amp;#x6f;&amp;#x6e;&amp;#x28;&amp;#x77;&amp;#x69;&amp;#x6e;</span>
+<span class="s">&amp;#x64;&amp;#x6f;&amp;#x77;&amp;#x2e;&amp;#x6c;&amp;#x6f;&amp;#x63;&amp;#x61;&amp;#x74;&amp;#x69;</span>
+<span class="s">&amp;#x6f;&amp;#x6e;&amp;#x3d;&amp;#x27;&amp;#x68;&amp;#x74;&amp;#x74;&amp;#x70;&amp;#x3a;&amp;#x2f;</span>
+<span class="s">&amp;#x2f;&amp;#x65;&amp;#x78;&amp;#x61;&amp;#x6d;&amp;#x70;&amp;#x6c;&amp;#x65;&amp;#x2e;&amp;#x6f;</span>
+<span class="s">&amp;#x72;&amp;#x67;&amp;#x2f;&amp;#x27;&amp;#x29;&quot;</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>And so on, plus several other variations, plus every combination of every
+variation.</p>
+<p>The more I investigate, the more cases I find where Internet Explorer for
+Windows will treat seemingly innocuous markup as code and blithely execute it.
+This is why <strong class="program">Universal Feed Parser</strong> uses a whitelist and not a
+blacklist. I am reasonably confident that none of the elements or attributes on
+the whitelist are security risks. I am not at all confident about elements or
+attributes that I have not explicitly investigated. And I have no confidence at
+all in my ability to detect strings within attribute values that Internet
+Explorer for Windows will treat as executable code.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference external" href="http://diveintomark.org/archives/2003/06/12/how_to_consume_rss_safely">How to consume RSS safely</a></dt><dd><p>Explains the platypus attack.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="advanced.html">Advanced Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="date-parsing.html">Date Parsing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sanitization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content-normalization.html">Content Normalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace-handling.html">Namespace Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resolving-relative-links.html">Relative Link Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version-detection.html">Feed Type and Version Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="character-encoding.html">Character Encoding Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bozo.html">Bozo Detection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="advanced.html">Advanced Features</a><ul>
+      <li>Previous: <a href="date-parsing.html" title="previous chapter">Date Parsing</a></li>
+      <li>Next: <a href="content-normalization.html" title="next chapter">Content Normalization</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/html-sanitization.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

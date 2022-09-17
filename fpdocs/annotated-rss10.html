@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>RSS 1.0 &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Revision history" href="history.html" />
+    <link rel="prev" title="RSS 2.0 with Namespaces" href="annotated-rss20-dc.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="rss-1-0">
+<span id="annotated-rss10"></span><h1><abbr title="Rich Site Summary">RSS</abbr> 1.0<a class="headerlink" href="#rss-1-0" title="Permalink to this headline">¶</a></h1>
+<p>This is a sample <abbr title="Rich Site Summary">RSS</abbr> 1.0 feed, annotated with links that show how each value can be accessed once the feed is parsed.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Even though many of these elements are required according to the specification,
+real-world feeds may be missing any element. If an element is not present in
+the feed, it will not be present in the parsed results. You should not rely on
+any particular element being present.</p>
+</div>
+<p class="rubric">Annotated <abbr title="Rich Site Summary">RSS</abbr> 1.0 feed</p>
+<div class="pre docutils container">
+<p>&lt;?xml version=”1.0” encoding=”<a class="reference internal" href="reference-encoding.html#reference-encoding"><span class="std std-ref">utf-8</span></a>”?&gt;
+&lt;rdf:RDF xmlns:rdf=”http://www.w3.org/1999/02/22-rdf-syntax-ns#”
+xmlns:dc=”http://purl.org/dc/elements/1.1/”
+xmlns:admin=”http://webns.net/mvcb/”
+xmlns:content=”http://purl.org/rss/1.0/modules/content/”
+xmlns:cc=”http://web.resource.org/cc/”
+xmlns=”<a class="reference internal" href="reference-version.html#reference-version"><span class="std std-ref">http://purl.org/rss/1.0/</span></a>”&gt;
+&lt;channel rdf:about=”http://www.example.org/index.rdf”&gt;
+&lt;title&gt;<a class="reference internal" href="reference-feed-title.html#reference-feed-title"><span class="std std-ref">Sample Feed</span></a>&lt;/title&gt;
+&lt;link&gt;<a class="reference internal" href="reference-feed-link.html#reference-feed-link"><span class="std std-ref">http://www.example.org/</span></a>&lt;/link&gt;
+&lt;description&gt;<a class="reference internal" href="reference-feed-subtitle.html#reference-feed-subtitle"><span class="std std-ref">For documentation only</span></a>&lt;/description&gt;
+&lt;dc:language&gt;<a class="reference internal" href="reference-feed-language.html#reference-feed-language"><span class="std std-ref">en</span></a>&lt;/dc:language&gt;
+&lt;cc:license rdf:resource=”<a class="reference internal" href="reference-feed-license.html#reference-feed-license"><span class="std std-ref">http://web.resource.org/cc/PublicDomain</span></a>”/&gt;
+&lt;dc:creator&gt;<a class="reference internal" href="reference-feed-author_detail.html#reference-feed-author-detail-name"><span class="std std-ref">Mark Pilgrim</span></a> (<a class="reference internal" href="reference-feed-author_detail.html#reference-feed-author-detail-email"><span class="std std-ref">mark&#64;example.org</span></a>)&lt;/dc:creator&gt;
+&lt;dc:date&gt;<a class="reference internal" href="reference-feed-updated.html#reference-feed-updated"><span class="std std-ref">2004-06-04T17:40:33-05:00</span></a>&lt;/dc:date&gt;
+&lt;admin:generatorAgent rdf:resource=”<a class="reference internal" href="reference-feed-generator_detail.html#reference-feed-generator-detail-href"><span class="std std-ref">http://www.exampletoolkit.org/</span></a>”/&gt;
+&lt;admin:errorReportsTo rdf:resource=”<a class="reference internal" href="reference-feed-errorreportsto.html#reference-feed-errorreportsto"><span class="std std-ref">mailto:mark&#64;example.org</span></a>”/&gt;
+&lt;items&gt;
+&lt;rdf:Seq&gt;
+&lt;rdf:li rdf:resource=”http://www.example.org/1” /&gt;
+&lt;/rdf:Seq&gt;
+&lt;/items&gt;
+&lt;/channel&gt;
+&lt;item rdf:about=”<a class="reference internal" href="reference-entry-id.html#reference-entry-id"><span class="std std-ref">http://www.example.org/1</span></a>”&gt;
+&lt;title&gt;<a class="reference internal" href="reference-entry-title.html#reference-entry-title"><span class="std std-ref">First of all</span></a>&lt;/title&gt;
+&lt;link&gt;<a class="reference internal" href="reference-entry-link.html#reference-entry-link"><span class="std std-ref">http://example.org/archives/2002/09/04.html#first_of_all</span></a>&lt;/link&gt;
+&lt;description&gt;
+<a class="reference internal" href="reference-entry-summary.html#reference-entry-summary"><span class="std std-ref">Americans are fat. Smokers are stupid. People who don’t speak Perl are irrelevant.</span></a>
+&lt;/description&gt;
+&lt;dc:subject&gt;<a class="reference internal" href="reference-entry-tags.html#reference-entry-tags-term"><span class="std std-ref">Quotes</span></a>&lt;/dc:subject&gt;
+&lt;dc:date&gt;<a class="reference internal" href="reference-entry-updated.html#reference-entry-updated"><span class="std std-ref">2004-05-30T14:23:54-06:00</span></a>&lt;/dc:date&gt;
+&lt;content:encoded&gt;&lt;![CDATA[<a class="reference internal" href="reference-entry-content.html#reference-entry-content"><span class="std std-ref">&lt;cite&gt;Ian Hickson&lt;/cite&gt;: &lt;q&gt;&lt;a href=”http://ln.hixie.ch/?start=1030823786&amp;count=1”&gt;
+Americans are fat. Smokers are stupid. People who don’t speak Perl are irrelevant.
+&lt;/a&gt;&lt;/q&gt;]]&gt;</span></a>
+&lt;/content:encoded&gt;
+&lt;/item&gt;
+&lt;/rdf:RDF&gt;</p>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="annotated-atom10.html">Atom 1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotated-atom03.html">Atom 0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotated-rss20.html"><abbr title="Rich Site Summary">RSS</abbr> 2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotated-rss20-dc.html">RSS 2.0 with Namespaces</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><abbr title="Rich Site Summary">RSS</abbr> 1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="annotated-examples.html">Annotated Examples</a><ul>
+      <li>Previous: <a href="annotated-rss20-dc.html" title="previous chapter">RSS 2.0 with Namespaces</a></li>
+      <li>Next: <a href="history.html" title="next chapter">Revision history</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/annotated-rss10.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

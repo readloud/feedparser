@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Relative Link Resolution &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Feed Type and Version Detection" href="version-detection.html" />
+    <link rel="prev" title="Namespace Handling" href="namespace-handling.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="relative-link-resolution">
+<span id="advanced-base"></span><h1>Relative Link Resolution<a class="headerlink" href="#relative-link-resolution" title="Permalink to this headline">¶</a></h1>
+<p>Many feed elements and attributes are <abbr title="Uniform Resource Identifier">URI</abbr>s.
+<strong class="program">Universal Feed Parser</strong> resolves relative <abbr title="Uniform Resource Identifier">URI</abbr>s
+according to the <a class="reference external" href="http://www.w3.org/TR/xmlbase/">XML:Base</a> specification.  We’ll see how
+that works in a minute, but first let’s talk about which values are treated as
+<abbr title="Uniform Resource Identifier">URI</abbr>s.</p>
+<section id="which-values-are-uris">
+<h2>Which Values Are <abbr title="Uniform Resource Identifier">URI</abbr>s<a class="headerlink" href="#which-values-are-uris" title="Permalink to this headline">¶</a></h2>
+<p>These feed elements are treated as <abbr title="Uniform Resource Identifier">URI</abbr>s,
+and resolved if they are relative:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference-entry-author_detail.html#reference-entry-author-detail-href"><span class="std std-ref">entries[i].author_detail.href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-comments.html#reference-entry-comments"><span class="std std-ref">entries[i].comments</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-contributors.html#reference-entry-contributors-href"><span class="std std-ref">entries[i].contributors[j].href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-enclosures.html#reference-entry-enclosures-href"><span class="std std-ref">entries[i].enclosures[j].href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-id.html#reference-entry-id"><span class="std std-ref">entries[i].id</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-license.html#reference-entry-license"><span class="std std-ref">entries[i].license</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-link.html#reference-entry-link"><span class="std std-ref">entries[i].link</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-links.html#reference-entry-links-href"><span class="std std-ref">entries[i].links[j].href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-publisher_detail.html#reference-entry-publisher-detail-href"><span class="std std-ref">entries[i].publisher_detail.href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-source.html#reference-entry-source-author-detail-href"><span class="std std-ref">entries[i].source.author_detail.href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-source.html#reference-entry-source-contributors-href"><span class="std std-ref">entries[i].source.contributors[j].href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-source.html#reference-entry-source-links-href"><span class="std std-ref">entries[i].source.links[j].href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-author_detail.html#reference-feed-author-detail-href"><span class="std std-ref">feed.author_detail.href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-contributors.html#reference-feed-contributors-href"><span class="std std-ref">feed.contributors[i].href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-docs.html#reference-feed-docs"><span class="std std-ref">feed.docs</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-generator_detail.html#reference-feed-generator-detail-href"><span class="std std-ref">feed.generator_detail.href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-id.html#reference-feed-id"><span class="std std-ref">feed.id</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-image.html#reference-feed-image-href"><span class="std std-ref">feed.image.href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-image.html#reference-feed-image-link"><span class="std std-ref">feed.image.link</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-license.html#reference-feed-license"><span class="std std-ref">feed.license</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-link.html#reference-feed-link"><span class="std std-ref">feed.link</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-links.html#reference-feed-links-href"><span class="std std-ref">feed.links[i].href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-publisher_detail.html#reference-feed-publisher-detail-href"><span class="std std-ref">feed.publisher_detail.href</span></a></p></li>
+<li><p><a class="reference internal" href="reference-feed-textinput.html#reference-feed-textinput-link"><span class="std std-ref">feed.textinput.link</span></a></p></li>
+</ul>
+<p>In addition, several feed elements may contain <abbr title="HyperText Markup Language">HTML</abbr>
+or <abbr title="Extensible HyperText Markup Language">XHTML</abbr> markup. Certain elements and
+attributes in <abbr title="HyperText Markup Language">HTML</abbr> can be relative
+<abbr title="Uniform Resource Identifier">URI</abbr>s, and <strong class="program">Universal Feed Parser</strong> will
+resolve these <abbr title="Uniform Resource Identifier">URI</abbr>s according to the same rules
+as the feed elements listed above.</p>
+<p>These feed elements may contain <abbr title="HyperText Markup Language">HTML</abbr> or
+<abbr title="Extensible HyperText Markup Language">XHTML</abbr> markup.  In Atom feeds,
+whether these elements are treated as <abbr title="HyperText Markup Language">HTML</abbr>
+depends on the value of the type attribute.  In <abbr title="Rich Site Summary">RSS</abbr>
+feeds, these values are always treated as <abbr title="HyperText Markup Language">HTML</abbr>.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference-entry-content.html#reference-entry-content-value"><span class="std std-ref">entries[i].content[j].value</span></a></p></li>
+<li><p><a class="reference internal" href="reference-entry-summary.html#reference-entry-summary"><span class="std std-ref">entries[i].summary</span></a> (<a class="reference internal" href="reference-entry-summary_detail.html#reference-entry-summary-detail-value"><span class="std std-ref">entries[i].summary_detail.value</span></a>)</p></li>
+<li><p><a class="reference internal" href="reference-entry-title.html#reference-entry-title"><span class="std std-ref">entries[i].title</span></a> (<a class="reference internal" href="reference-entry-title_detail.html#reference-entry-title-detail-value"><span class="std std-ref">entries[i].title_detail.value</span></a>)</p></li>
+<li><p><a class="reference internal" href="reference-feed-info.html#reference-feed-info"><span class="std std-ref">feed.info</span></a> (<a class="reference internal" href="reference-feed-info-detail.html#reference-feed-info-detail-value"><span class="std std-ref">feed.info_detail.value</span></a>)</p></li>
+<li><p><a class="reference internal" href="reference-feed-rights.html#reference-feed-rights"><span class="std std-ref">feed.rights</span></a> (<a class="reference internal" href="reference-feed-rights_detail.html#reference-feed-rights-detail-value"><span class="std std-ref">feed.rights_detail.value</span></a>)</p></li>
+<li><p><a class="reference internal" href="reference-feed-subtitle.html#reference-feed-subtitle"><span class="std std-ref">feed.subtitle</span></a> (<a class="reference internal" href="reference-feed-subtitle_detail.html#reference-feed-subtitle-detail-value"><span class="std std-ref">feed.subtitle_detail.value</span></a>)</p></li>
+<li><p><a class="reference internal" href="reference-feed-title.html#reference-feed-title"><span class="std std-ref">feed.title</span></a> (<a class="reference internal" href="reference-feed-title_detail.html#reference-feed-title-detail-value"><span class="std std-ref">feed.title_detail.value</span></a>)</p></li>
+</ul>
+<p>When any of these feed elements contains <abbr title="HyperText Markup Language">HTML</abbr>
+or <abbr title="Extensible HyperText Markup Language">XHTML</abbr> markup, the
+following <abbr title="HyperText Markup Language">HTML</abbr> elements are treated as
+<abbr title="Uniform Resource Identifier">URI</abbr>s and are resolved if they are
+relative:</p>
+<ul class="simple">
+<li><p>&lt;a href=”…”&gt;</p></li>
+<li><p>&lt;applet codebase=”…”&gt;</p></li>
+<li><p>&lt;area href=”…”&gt;</p></li>
+<li><p>&lt;audio src=”…”&gt;</p></li>
+<li><p>&lt;blockquote cite=”…”&gt;</p></li>
+<li><p>&lt;body background=”…”&gt;</p></li>
+<li><p>&lt;del cite=”…”&gt;</p></li>
+<li><p>&lt;form action=”…”&gt;</p></li>
+<li><p>&lt;frame longdesc=”…”&gt;</p></li>
+<li><p>&lt;frame src=”…”&gt;</p></li>
+<li><p>&lt;head profile=”…”&gt;</p></li>
+<li><p>&lt;iframe longdesc=”…”&gt;</p></li>
+<li><p>&lt;iframe src=”…”&gt;</p></li>
+<li><p>&lt;img longdesc=”…”&gt;</p></li>
+<li><p>&lt;img src=”…”&gt;</p></li>
+<li><p>&lt;img usemap=”…”&gt;</p></li>
+<li><p>&lt;input src=”…”&gt;</p></li>
+<li><p>&lt;input usemap=”…”&gt;</p></li>
+<li><p>&lt;ins cite=”…”&gt;</p></li>
+<li><p>&lt;link href=”…”&gt;</p></li>
+<li><p>&lt;object classid=”…”&gt;</p></li>
+<li><p>&lt;object codebase=”…”&gt;</p></li>
+<li><p>&lt;object data=”…”&gt;</p></li>
+<li><p>&lt;object usemap=”…”&gt;</p></li>
+<li><p>&lt;q cite=”…”&gt;</p></li>
+<li><p>&lt;script src=”…”&gt;</p></li>
+<li><p>&lt;source src=”…”&gt;</p></li>
+<li><p>&lt;video poster=”…”&gt;</p></li>
+<li><p>&lt;video src=”…”&gt;</p></li>
+</ul>
+</section>
+<section id="how-relative-uris-are-resolved">
+<h2>How Relative <abbr title="Uniform Resource Identifier">URI</abbr>s Are Resolved<a class="headerlink" href="#how-relative-uris-are-resolved" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">Universal Feed Parser</strong> resolves relative <abbr title="Uniform Resource Identifier">URI</abbr>s
+according to the <a class="reference external" href="http://www.w3.org/TR/xmlbase/">XML:Base</a> specification.
+This defines a hierarchical inheritance system, where one element can define
+the base <abbr title="Uniform Resource Identifier">URI</abbr> for itself and all of its
+child elements, using an xml:base attribute.  A child element can then override
+its parent’s base <abbr title="Uniform Resource Identifier">URI</abbr> by redeclaring
+xml:base to a different value.</p>
+<p>If no xml:base is specified, the feed has a default base <abbr title="Uniform Resource Identifier">URI</abbr>
+defined in the Content-Location <abbr title="Hypertext Transfer Protocol">HTTP</abbr> header.</p>
+<p>If no Content-Location <abbr title="Hypertext Transfer Protocol">HTTP</abbr> header is
+present, the <abbr title="Uniform Resource Locator">URL</abbr> used to retrieve the feed
+itself is the default base <abbr title="Uniform Resource Identifier">URI</abbr> for all
+relative links within the feed.  If the feed was retrieved via an
+<abbr title="Hypertext Transfer Protocol">HTTP</abbr> redirect (any <abbr title="Hypertext Transfer Protocol">HTTP</abbr>
+3xx status code), then the final <abbr title="Uniform Resource Locator">URL</abbr> of the
+feed is the default base <abbr title="Uniform Resource Identifier">URI</abbr>.</p>
+<p>For example, an xml:base on the root-level element sets the base
+<abbr title="Uniform Resource Identifier">URI</abbr> for all <abbr title="Uniform Resource Identifier">URI</abbr>s in the feed.</p>
+<section id="xml-base-on-the-root-level-element">
+<h3>xml:base on the root-level element<a class="headerlink" href="#xml-base-on-the-root-level-element" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;http://feedparser.org/docs/examples/base.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">link</span>
+<span class="go">u&#39;http://example.org/index.html&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">generator_detail</span><span class="o">.</span><span class="n">href</span>
+<span class="go">u&#39;http://example.org/generator/&#39;</span>
+</pre></div>
+</div>
+<p>An xml:base attribute on an &lt;entry&gt; overrides the xml:base on the parent &lt;feed&gt;.</p>
+</section>
+<section id="overriding-xml-base-on-an-entry">
+<h3>Overriding xml:base on an &lt;entry&gt;<a class="headerlink" href="#overriding-xml-base-on-an-entry" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;http://feedparser.org/docs/examples/base.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">link</span>
+<span class="go">u&#39;http://example.org/archives/000001.html&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">author_detail</span><span class="o">.</span><span class="n">href</span>
+<span class="go">u&#39;http://example.org/about/&#39;</span>
+</pre></div>
+</div>
+<p>An xml:base on &lt;content&gt; overrides the xml:base on the parent &lt;entry&gt;.  In
+addition, whatever the base <abbr title="Uniform Resource Identifier">URI</abbr> is for
+the &lt;content&gt; element (whether defined directly on the &lt;content&gt; element, or
+inherited from the parent element) is used as the base <abbr title="Uniform Resource Identifier">URI</abbr>
+for the embedded <abbr title="HyperText Markup Language">HTML</abbr>
+or <abbr title="Extensible HyperText Markup Language">XHTML</abbr> markup within the
+content.</p>
+</section>
+<section id="relative-links-within-embedded-html">
+<h3>Relative links within embedded <abbr title="HyperText Markup Language">HTML</abbr><a class="headerlink" href="#relative-links-within-embedded-html" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;http://feedparser.org/docs/examples/base.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="go">u&#39;&lt;p id=&quot;anchor1&quot;&gt;&lt;a href=&quot;http://example.org/archives/000001.html#anchor2&quot;&gt;skip to anchor 2&lt;/a&gt;&lt;/p&gt;</span>
+<span class="go">&lt;p&gt;Some content&lt;/p&gt;</span>
+<span class="go">&lt;p id=&quot;anchor2&quot;&gt;This is anchor 2&lt;/p&gt;&#39;</span>
+</pre></div>
+</div>
+<p>The xml:base affects other attributes in the element in which it is declared.</p>
+</section>
+<section id="xml-base-and-sibling-attributes">
+<h3>xml:base and sibling attributes<a class="headerlink" href="#xml-base-and-sibling-attributes" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;http://feedparser.org/docs/examples/base.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">links</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rel</span>
+<span class="go">u&#39;service.edit&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">links</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">href</span>
+<span class="go">u&#39;http://example.com/api/client/37&#39;</span>
+</pre></div>
+</div>
+<p>If no xml:base is specified on the root-level element, the default base
+<abbr title="Uniform Resource Identifier">URI</abbr> is given in the Content-Location
+<abbr title="Hypertext Transfer Protocol">HTTP</abbr> header.  This can still be
+overridden by any child element that declares an xml:base attribute.</p>
+</section>
+<section id="content-location-http-header">
+<h3>Content-Location <abbr title="Hypertext Transfer Protocol">HTTP</abbr> header<a class="headerlink" href="#content-location-http-header" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;http://feedparser.org/docs/examples/http_base.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">link</span>
+<span class="go">u&#39;http://example.org/index.html&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">link</span>
+<span class="go">u&#39;http://example.org/archives/000001.html&#39;</span>
+</pre></div>
+</div>
+<p>Finally, if no root-level xml:base is declared, and no Content-Location
+<abbr title="Hypertext Transfer Protocol">HTTP</abbr> header is present, the
+<abbr title="Uniform Resource Locator">URL</abbr> of the feed itself is the default base
+<abbr title="Uniform Resource Identifier">URI</abbr>.  Again, this can still be overridden
+by any element that declares an xml:base attribute.</p>
+</section>
+<section id="feed-url-as-default-base-uri">
+<h3>Feed <abbr title="Uniform Resource Locator">URL</abbr> as default base <abbr title="Uniform Resource Identifier">URI</abbr><a class="headerlink" href="#feed-url-as-default-base-uri" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;http://feedparser.org/docs/examples/no_base.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">link</span>
+<span class="go">u&#39;http://feedparser.org/docs/examples/index.html</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">link</span>
+<span class="go">u&#39;http://example.org/archives/000001.html&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="disabling-relative-uris-resolution">
+<span id="advanced-base-disable"></span><h2>Disabling Relative <abbr title="Uniform Resource Identifier">URI</abbr>s Resolution<a class="headerlink" href="#disabling-relative-uris-resolution" title="Permalink to this headline">¶</a></h2>
+<p>Though not recommended, it is possible to disable <strong class="program">Universal Feed Parser</strong>'s relative
+<abbr title="Uniform Resource Identifier">URI</abbr> resolution by setting feedparser.RESOLVE_RELATIVE_URIS to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<section id="how-to-disable-relative-uri-resolution">
+<h3>How to disable relative <abbr title="Uniform Resource Identifier">URI</abbr> resolution<a class="headerlink" href="#how-to-disable-relative-uri-resolution" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/base.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">base</span>
+<span class="go">u&#39;http://example.org/archives/000001.html&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="go">&lt;p id=&quot;anchor1&quot;&gt;&lt;a href=&quot;http://example.org/archives/000001.html#anchor2&quot;&gt;skip to anchor 2&lt;/a&gt;&lt;/p&gt;</span>
+<span class="go">&lt;p&gt;Some content&lt;/p&gt;</span>
+<span class="go">&lt;p id=&quot;anchor2&quot;&gt;This is anchor 2&lt;/p&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">feedparser</span><span class="o">.</span><span class="n">RESOLVE_RELATIVE_URIS</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d2</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/base.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d2</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">base</span>
+<span class="go">u&#39;http://example.org/archives/000001.html&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">d2</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="go">&lt;p id=&quot;anchor1&quot;&gt;&lt;a href=&quot;#anchor2&quot;&gt;skip to anchor 2&lt;/a&gt;&lt;/p&gt;</span>
+<span class="go">&lt;p&gt;Some content&lt;/p&gt;</span>
+<span class="go">&lt;p id=&quot;anchor2&quot;&gt;This is anchor 2&lt;/p&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="advanced.html">Advanced Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="date-parsing.html">Date Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html-sanitization.html">Sanitization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content-normalization.html">Content Normalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace-handling.html">Namespace Handling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Relative Link Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version-detection.html">Feed Type and Version Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="character-encoding.html">Character Encoding Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bozo.html">Bozo Detection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="advanced.html">Advanced Features</a><ul>
+      <li>Previous: <a href="namespace-handling.html" title="previous chapter">Namespace Handling</a></li>
+      <li>Next: <a href="version-detection.html" title="next chapter">Feed Type and Version Detection</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/resolving-relative-links.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

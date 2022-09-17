@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Password-Protected Feeds &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Other HTTP Headers" href="http-other.html" />
+    <link rel="prev" title="HTTP Redirects" href="http-redirect.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="password-protected-feeds">
+<h1>Password-Protected Feeds<a class="headerlink" href="#password-protected-feeds" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">Universal Feed Parser</strong> supports downloading and parsing
+password-protected feeds that are protected by <abbr title="Hypertext Transfer Protocol">HTTP</abbr>
+authentication.  Both basic and digest authentication are supported.</p>
+<section id="downloading-a-feed-protected-by-basic-authentication-the-easy-way">
+<h2>Downloading a feed protected by basic authentication (the easy way)<a class="headerlink" href="#downloading-a-feed-protected-by-basic-authentication-the-easy-way" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way is to embed the username and password in the feed
+<abbr title="Uniform Resource Locator">URL</abbr> itself.</p>
+<p>In this example, the username is test and the password is basic.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://test:basic@feedparser.org/docs/examples/basic_auth.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">title</span>
+<span class="go">u&#39;Sample Feed&#39;</span>
+</pre></div>
+</div>
+<p>The same technique works for digest authentication.  (Technically,
+<strong class="program">Universal Feed Parser</strong> will attempt basic authentication first, but
+if that fails and the server indicates that it requires digest authentication,
+<strong class="program">Universal Feed Parser</strong> will automatically re-request the feed with
+the appropriate digest authentication headers.  <em>This means that this technique
+will send your password to the server in an easily decryptable form.</em>)</p>
+</section>
+<section id="downloading-a-feed-protected-by-digest-authentication-the-easy-but-horribly-insecure-way">
+<span id="example-auth-inline-digest"></span><h2>Downloading a feed protected by digest authentication (the easy but horribly insecure way)<a class="headerlink" href="#downloading-a-feed-protected-by-digest-authentication-the-easy-but-horribly-insecure-way" title="Permalink to this headline">¶</a></h2>
+<p>In this example, the username is test and the password is digest.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://test:digest@feedparser.org/docs/examples/digest_auth.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">title</span>
+<span class="go">u&#39;Sample Feed&#39;</span>
+</pre></div>
+</div>
+<p>You can also construct a HTTPBasicAuthHandler that contains the password
+information, then pass that as a handler to the <code class="docutils literal notranslate"><span class="pre">parse</span></code> function.
+HTTPBasicAuthHandler is part of the standard <a class="reference external" href="http://docs.python.org/lib/module-urllib2.html">urllib2</a> module.</p>
+</section>
+<section id="downloading-a-feed-protected-by-http-basic-authentication-the-hard-way">
+<h2>Downloading a feed protected by <abbr title="Hypertext Transfer Protocol">HTTP</abbr> basic authentication (the hard way)<a class="headerlink" href="#downloading-a-feed-protected-by-http-basic-authentication-the-hard-way" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib2</span><span class="o">,</span> <span class="nn">feedparser</span>
+
+<span class="c1"># Construct the authentication handler</span>
+<span class="n">auth</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">HTTPBasicAuthHandler</span><span class="p">()</span>
+
+<span class="c1"># Add password information: realm, host, user, password.</span>
+<span class="c1"># A single handler can contain passwords for multiple sites;</span>
+<span class="c1"># urllib2 will sort out which passwords get sent to which sites</span>
+<span class="c1"># based on the realm and host of the URL you&#39;re retrieving</span>
+<span class="n">auth</span><span class="o">.</span><span class="n">add_password</span><span class="p">(</span><span class="s1">&#39;BasicTest&#39;</span><span class="p">,</span> <span class="s1">&#39;feedparser.org&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;basic&#39;</span><span class="p">)</span>
+
+<span class="c1"># Pass the authentication handler to the feed parser.</span>
+<span class="c1"># handlers is a list because there might be more than one</span>
+<span class="c1"># type of handler (urllib2 defines lots of different ones,</span>
+<span class="c1"># and you can build your own)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/basic_auth.xml&#39;</span><span class="p">,</span>
+                     <span class="n">handlers</span><span class="o">=</span><span class="p">[</span><span class="n">auth</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Digest authentication is handled in much the same way, by constructing an
+HTTPDigestAuthHandler and populating it with the necessary realm, host, user,
+and password information.  This is more secure than
+<a class="reference internal" href="#example-auth-inline-digest"><span class="std std-ref">stuffing the username and password in the URL</span></a>,
+since the password will be encrypted before being sent to the server.</p>
+</section>
+<section id="downloading-a-feed-protected-by-http-digest-authentication-the-secure-way">
+<h2>Downloading a feed protected by <abbr title="Hypertext Transfer Protocol">HTTP</abbr> digest authentication (the secure way)<a class="headerlink" href="#downloading-a-feed-protected-by-http-digest-authentication-the-secure-way" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib2</span><span class="o">,</span> <span class="nn">feedparser</span>
+
+<span class="n">auth</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">HTTPDigestAuthHandler</span><span class="p">()</span>
+<span class="n">auth</span><span class="o">.</span><span class="n">add_password</span><span class="p">(</span><span class="s1">&#39;DigestTest&#39;</span><span class="p">,</span> <span class="s1">&#39;feedparser.org&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;digest&#39;</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/digest_auth.xml&#39;</span><span class="p">,</span>
+                      <span class="n">handlers</span><span class="o">=</span><span class="p">[</span><span class="n">auth</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The examples so far have assumed that you know in advance that the feed is
+password-protected.  But what if you don’t know?</p>
+<p>If you try to download a password-protected feed without sending all the proper
+password information, the server will return an
+<abbr title="Hypertext Transfer Protocol">HTTP</abbr> status code <code class="docutils literal notranslate"><span class="pre">401</span></code>.
+<strong class="program">Universal Feed Parser</strong> makes this status code available in
+<code class="docutils literal notranslate"><span class="pre">d.status</span></code>.</p>
+<p>Details on the authentication scheme are in <code class="docutils literal notranslate"><span class="pre">d.headers['www-authenticate']</span></code>.
+<strong class="program">Universal Feed Parser</strong> does not do any further parsing on this field;
+you will need to parse it yourself.  Everything before the first space is the
+type of authentication (probably <code class="docutils literal notranslate"><span class="pre">Basic</span></code> or <code class="docutils literal notranslate"><span class="pre">Digest</span></code>), which controls which
+type of handler you’ll need to construct.  The realm name is given as
+realm=”foo” – so foo would be your first argument to auth.add_password.  Other
+information in the www-authenticate header is probably safe to ignore; the
+<code class="file docutils literal notranslate"><span class="pre">urllib2</span></code> module will handle it for you.</p>
+</section>
+<section id="determining-that-a-feed-is-password-protected">
+<h2>Determining that a feed is password-protected<a class="headerlink" href="#determining-that-a-feed-is-password-protected" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/basic_auth.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">status</span>
+<span class="go">401</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;www-authenticate&#39;</span><span class="p">]</span>
+<span class="go">&#39;Basic realm=&quot;Use test/basic&quot;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/digest_auth.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">status</span>
+<span class="go">401</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;www-authenticate&#39;</span><span class="p">]</span>
+<span class="go">&#39;Digest realm=&quot;DigestTest&quot;,</span>
+<span class="go">nonce=&quot;+LV/uLLdAwA=5d77397291261b9ef256b034e19bcb94f5b7992a&quot;,</span>
+<span class="go">algorithm=MD5,</span>
+<span class="go">qop=&quot;auth&quot;&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="http-etag.html">ETag and Last-Modified Headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-useragent.html">User-Agent and Referer Headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-redirect.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Redirects</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Password-Protected Feeds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-other.html">Other <abbr title="Hypertext Transfer Protocol">HTTP</abbr> Headers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a><ul>
+      <li>Previous: <a href="http-redirect.html" title="previous chapter"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Redirects</a></li>
+      <li>Next: <a href="http-other.html" title="next chapter">Other <abbr title="Hypertext Transfer Protocol">HTTP</abbr> Headers</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/http-authentication.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

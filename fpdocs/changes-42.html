@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Changes in version 4.2 &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changes in version 4.1" href="changes-41.html" />
+    <link rel="prev" title="Revision history" href="history.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="changes-in-version-4-2">
+<h1>Changes in version 4.2<a class="headerlink" href="#changes-in-version-4-2" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">Universal Feed Parser</strong> 4.2 was released on 2008-03-12.</p>
+<ul class="simple">
+<li><p>Support for parsing microformats, including rel=enclosure, rel=tag, XFN, and hCard.</p></li>
+<li><p>Updated the whitelist of <a class="reference internal" href="html-sanitization.html#advanced-sanitization-html"><span class="std std-ref">acceptable HTML elements and attributes</span></a> based on the latest draft of the <abbr title="HyperText Markup Language">HTML</abbr> 5 specification.</p></li>
+<li><p>Support for <a class="reference internal" href="html-sanitization.html#advanced-sanitization-css"><span class="std std-ref">CSS Sanitization</span></a>.  (Previous versions of <strong class="program">Universal Feed Parser</strong> simply stripped all inline styles.)  Many thanks to Sam Ruby for implementing this, despite my insistence that it was impossible.</p></li>
+<li><p>Support for <a class="reference internal" href="html-sanitization.html#advanced-sanitization-svg"><span class="std std-ref">SVG Sanitization</span></a>.</p></li>
+<li><p>Support for <a class="reference internal" href="html-sanitization.html#advanced-sanitization-mathml"><span class="std std-ref">MathML Sanitization</span></a>.  Many thanks to Jacques Distler for patiently debugging this feature.</p></li>
+<li><p><abbr title="International Resource Identifier">IRI</abbr> support for every element that can contain a <abbr title="Uniform Resource Identifier">URI</abbr>.</p></li>
+<li><p>Ability to <a class="reference internal" href="resolving-relative-links.html#advanced-base-disable"><span class="std std-ref">disable relative URI resolution</span></a>.</p></li>
+<li><p>Command-line arguments and alternate serializers, for manipulating <strong class="program">Universal Feed Parser</strong> from shell scripts or other non-Python sources.</p></li>
+<li><p>More robust parsing of author email addresses, misencoded win-1252 content, rel=self links, and better detection of HTML content in elements with ambiguous content types.</p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="history.html">Revision history</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Changes in version 4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-41.html">Changes in version 4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-402.html">Changes in version 4.0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-401.html">Changes in version 4.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-40.html">Changes in version 4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-33.html">Changes in version 3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-32.html">Changes in version 3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-31.html">Changes in version 3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-301.html">Changes in version 3.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-30.html">Changes in version 3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-27.html">Changes in version 2.7.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-26.html">Changes in version 2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changes-early.html">Changes in earlier versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="history.html">Revision history</a><ul>
+      <li>Previous: <a href="history.html" title="previous chapter">Revision history</a></li>
+      <li>Next: <a href="changes-41.html" title="next chapter">Changes in version 4.1</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/changes-42.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

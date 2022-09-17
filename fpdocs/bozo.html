@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Bozo Detection &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="HTTP Features" href="http.html" />
+    <link rel="prev" title="Character Encoding Detection" href="character-encoding.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="bozo-detection">
+<span id="advanced-bozo"></span><h1>Bozo Detection<a class="headerlink" href="#bozo-detection" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">Universal Feed Parser</strong> can parse feeds whether they are well-formed
+<abbr title="Extensible Markup Language">XML</abbr> or not.  However, since some
+applications may wish to reject or warn users about non-well-formed feeds,
+<strong class="program">Universal Feed Parser</strong> sets the <code class="docutils literal notranslate"><span class="pre">bozo</span></code> bit when it detects that a
+feed is not well-formed.  Thanks to <a class="reference external" href="http://www.tbray.org/ongoing/When/200x/2004/01/11/PostelPilgrim">Tim Bray</a> for
+suggesting this terminology.</p>
+<section id="detecting-a-non-well-formed-feed">
+<h2>Detecting a non-well-formed feed<a class="headerlink" href="#detecting-a-non-well-formed-feed" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/atom10.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">bozo</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/tests/illformed/rss/aaa_illformed.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">bozo</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">bozo_exception</span>
+<span class="go">&lt;xml.sax._exceptions.SAXParseException instance at 0x00BAAA08&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">bozo_exception</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exc</span><span class="o">.</span><span class="n">getMessage</span><span class="p">()</span>
+<span class="go">&quot;expected &#39;&gt;&#39;\\n&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exc</span><span class="o">.</span><span class="n">getLineNumber</span><span class="p">()</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+<p>There are many reasons an <abbr title="Extensible Markup Language">XML</abbr> document
+could be non-well-formed besides this example (incomplete end tags)  See
+<a class="reference internal" href="character-encoding.html#advanced-encoding"><span class="std std-ref">Character Encoding Detection</span></a> for some other ways to trip the bozo bit.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="advanced.html">Advanced Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="date-parsing.html">Date Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html-sanitization.html">Sanitization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content-normalization.html">Content Normalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace-handling.html">Namespace Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resolving-relative-links.html">Relative Link Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version-detection.html">Feed Type and Version Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="character-encoding.html">Character Encoding Detection</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Bozo Detection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="advanced.html">Advanced Features</a><ul>
+      <li>Previous: <a href="character-encoding.html" title="previous chapter">Character Encoding Detection</a></li>
+      <li>Next: <a href="http.html" title="next chapter"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/bozo.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

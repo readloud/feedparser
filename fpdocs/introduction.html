@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Common RSS Elements" href="common-rss-elements.html" />
+    <link rel="prev" title="Basic Features" href="basic.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">Universal Feed Parser</strong> is a <strong class="program">Python</strong> module for downloading
+and parsing syndicated feeds.  It can handle <abbr title="Rich Site Summary">RSS</abbr>
+0.90, Netscape <abbr title="Rich Site Summary">RSS</abbr> 0.91, Userland <abbr title="Rich Site Summary">RSS</abbr> 0.91, <abbr title="Rich Site Summary">RSS</abbr> 0.92, <abbr title="Rich Site Summary">RSS</abbr> 0.93, <abbr title="Rich Site Summary">RSS</abbr> 0.94, <abbr title="Rich Site Summary">RSS</abbr> 1.0, <abbr title="Rich Site Summary">RSS</abbr> 2.0, Atom 0.3, Atom 1.0,
+and <abbr title="Channel Definition Format">CDF</abbr> feeds.  It also parses several
+popular extension modules, including Dublin Core and Apple’s <strong class="program">iTunes</strong>
+extensions.</p>
+<p>To use <strong class="program">Universal Feed Parser</strong>, you will need <strong class="program">Python</strong> 2.4 or
+later (Python 3 is supported).  <strong class="program">Universal Feed Parser</strong> is not meant
+to run standalone; it is a module for you to use as part of a larger
+<strong class="program">Python</strong> program.</p>
+<p><strong class="program">Universal Feed Parser</strong> is easy to use; the module is self-contained
+in a single file, <code class="file docutils literal notranslate"><span class="pre">feedparser.py</span></code>, and it has one primary public
+function, <code class="docutils literal notranslate"><span class="pre">parse</span></code>.  <code class="docutils literal notranslate"><span class="pre">parse</span></code> takes a number of arguments, but only one is
+required, and it can be a <abbr title="Uniform Resource Locator">URL</abbr>, a local
+filename, or a raw string containing feed data in any format.</p>
+<section id="parsing-a-feed-from-a-remote-url">
+<h2>Parsing a feed from a remote <abbr title="Uniform Resource Locator">URL</abbr><a class="headerlink" href="#parsing-a-feed-from-a-remote-url" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/atom10.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;feed&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+<span class="go">u&#39;Sample Feed&#39;</span>
+</pre></div>
+</div>
+<p>The following example assumes you are on Windows, and that you have saved a feed at <code class="file docutils literal notranslate"><span class="pre">c:\incoming\atom10.xml</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong class="program">Universal Feed Parser</strong> works on any platform that can run
+<strong class="program">Python</strong>; use the path syntax appropriate for your platform.</p>
+</div>
+</section>
+<section id="parsing-a-feed-from-a-local-file">
+<h2>Parsing a feed from a local file<a class="headerlink" href="#parsing-a-feed-from-a-local-file" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;c:\incoming\atom10.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;feed&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+<span class="go">u&#39;Sample Feed&#39;</span>
+</pre></div>
+</div>
+<p><strong class="program">Universal Feed Parser</strong> can also parse a feed in memory.</p>
+</section>
+<section id="parsing-a-feed-from-a-string">
+<h2>Parsing a feed from a string<a class="headerlink" href="#parsing-a-feed-from-a-string" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rawdata</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;rss version=&quot;2.0&quot;&gt;</span>
+<span class="go">&lt;channel&gt;</span>
+<span class="go">&lt;title&gt;Sample Feed&lt;/title&gt;</span>
+<span class="go">&lt;/channel&gt;</span>
+<span class="go">&lt;/rss&gt;&quot;&quot;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">rawdata</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;feed&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+<span class="go">u&#39;Sample Feed&#39;</span>
+</pre></div>
+</div>
+<p>Values are returned as <strong class="program">Python</strong> Unicode strings (except when they’re
+not – see <a class="reference internal" href="character-encoding.html#advanced-encoding"><span class="std std-ref">Character Encoding Detection</span></a> for all the gory details).</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="http://docs.python.org/tut/node5.html#SECTION005130000000000000000">Introduction to Python Unicode strings</a></p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="basic.html">Basic Features</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common-rss-elements.html">Common <abbr title="Rich Site Summary">RSS</abbr> Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common-atom-elements.html">Common Atom Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atom-detail.html">Getting Detailed Information on Atom Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uncommon-rss.html">Uncommon <abbr title="Rich Site Summary">RSS</abbr> Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uncommon-atom.html">Uncommon Atom Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic-existence.html">Testing for Existence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="basic.html">Basic Features</a><ul>
+      <li>Previous: <a href="basic.html" title="previous chapter">Basic Features</a></li>
+      <li>Next: <a href="common-rss-elements.html" title="next chapter">Common <abbr title="Rich Site Summary">RSS</abbr> Elements</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/introduction.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

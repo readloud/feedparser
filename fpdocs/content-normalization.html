@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Content Normalization &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Namespace Handling" href="namespace-handling.html" />
+    <link rel="prev" title="Sanitization" href="html-sanitization.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="content-normalization">
+<span id="advanced-normalization"></span><h1>Content Normalization<a class="headerlink" href="#content-normalization" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">Universal Feed Parser</strong> can parse many different types of feeds: Atom,
+<abbr title="Channel Definition Format">CDF</abbr>, and nine different versions of
+<abbr title="Rich Site Summary">RSS</abbr>.  You should not be forced to learn the
+differences between these formats.  <strong class="program">Universal Feed Parser</strong> does its
+best to ensure that you can treat all feeds the same way, regardless of format
+or version.</p>
+<p>You can access the basic elements of an Atom feed using <abbr title="Rich Site Summary">RSS</abbr> terminology.</p>
+<section id="accessing-an-atom-feed-as-an-rss-feed">
+<h2>Accessing an Atom feed as an <abbr title="Rich Site Summary">RSS</abbr> feed<a class="headerlink" href="#accessing-an-atom-feed-as-an-rss-feed" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/atom10.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+<span class="go">u&#39;Sample Feed&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">][</span><span class="s1">&#39;link&#39;</span><span class="p">]</span>
+<span class="go">u&#39;http://example.org/&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">][</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
+<span class="go">u&#39;For documentation &lt;em&gt;only&lt;/em&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">])</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+<span class="go">u&#39;First entry title&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;link&#39;</span><span class="p">]</span>
+<span class="go">u&#39;http://example.org/entry/3&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
+<span class="go">u&#39;Watch out for nasty tricks&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span>
+<span class="go">u&#39;Mark Pilgrim (mark@example.org)&#39;</span>
+</pre></div>
+</div>
+<p>The same thing works in reverse: you can access <abbr title="Rich Site Summary">RSS</abbr> feeds as if they were Atom feeds.</p>
+</section>
+<section id="accessing-an-rss-feed-as-an-atom-feed">
+<h2>Accessing an <abbr title="Rich Site Summary">RSS</abbr> feed as an Atom feed<a class="headerlink" href="#accessing-an-rss-feed-as-an-atom-feed" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39; http://feedparser.org/docs/examples/rss20.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">subtitle_detail</span>
+<span class="go">{&#39;type&#39;: &#39;text/html&#39;,</span>
+<span class="go">&#39;base&#39;: &#39;http://feedparser.org/docs/examples/rss20.xml&#39;,</span>
+<span class="go">&#39;language&#39;: None,</span>
+<span class="go">&#39;value&#39;: u&#39;For documentation &lt;em&gt;only&lt;/em&gt;&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">links</span>
+<span class="go">[{&#39;rel&#39;: &#39;alternate&#39;,</span>
+<span class="go">&#39;type&#39;: &#39;text/html&#39;,</span>
+<span class="go">&#39;href&#39;: u&#39;http://example.org/item/1&#39;}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">summary_detail</span>
+<span class="go">{&#39;type&#39;: &#39;text/html&#39;,</span>
+<span class="go">&#39;base&#39;: &#39;http://feedparser.org/docs/examples/rss20.xml&#39;,</span>
+<span class="go">&#39;language&#39;: u&#39;en&#39;,</span>
+<span class="go">&#39;value&#39;: u&#39;Watch out for &lt;span&gt;nasty tricks&lt;/span&gt;&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">updated_parsed</span>
+<span class="go">(2002, 9, 5, 0, 0, 1, 3, 248, 0)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more examples of how <strong class="program">Universal Feed Parser</strong> normalizes
+content from different formats, see <a class="reference internal" href="annotated-examples.html#annotated"><span class="std std-ref">Annotated Examples</span></a>.</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="advanced.html">Advanced Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="date-parsing.html">Date Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html-sanitization.html">Sanitization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Content Normalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace-handling.html">Namespace Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resolving-relative-links.html">Relative Link Resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version-detection.html">Feed Type and Version Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="character-encoding.html">Character Encoding Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bozo.html">Bozo Detection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="advanced.html">Advanced Features</a><ul>
+      <li>Previous: <a href="html-sanitization.html" title="previous chapter">Sanitization</a></li>
+      <li>Next: <a href="namespace-handling.html" title="next chapter">Namespace Handling</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/content-normalization.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

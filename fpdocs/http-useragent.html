@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>User-Agent and Referer Headers &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="HTTP Redirects" href="http-redirect.html" />
+    <link rel="prev" title="ETag and Last-Modified Headers" href="http-etag.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="user-agent-and-referer-headers">
+<h1>User-Agent and Referer Headers<a class="headerlink" href="#user-agent-and-referer-headers" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">Universal Feed Parser</strong> sends a default User-Agent string when it
+requests a feed from a web server.</p>
+<p>The default User-Agent string looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UniversalFeedParser</span><span class="o">/</span><span class="mf">5.0</span><span class="o">.</span><span class="mi">1</span> <span class="o">+</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">feedparser</span><span class="o">.</span><span class="n">org</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>If you are embedding <strong class="program">Universal Feed Parser</strong> in a larger application,
+you should change the User-Agent to your application name and
+<abbr title="Uniform Resource Locator">URL</abbr>.</p>
+<section id="customizing-the-user-agent">
+<h2>Customizing the User-Agent<a class="headerlink" href="#customizing-the-user-agent" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/atom10.xml&#39;</span><span class="p">,</span>
+<span class="go">agent=&#39;MyApp/1.0 +http://example.com/&#39;)</span>
+</pre></div>
+</div>
+<p>You can also set the User-Agent once, globally, and then call the <code class="docutils literal notranslate"><span class="pre">parse</span></code>
+function normally.</p>
+</section>
+<section id="customizing-the-user-agent-permanently">
+<h2>Customizing the User-Agent permanently<a class="headerlink" href="#customizing-the-user-agent-permanently" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">feedparser</span><span class="o">.</span><span class="n">USER_AGENT</span> <span class="o">=</span> <span class="s2">&quot;MyApp/1.0 +http://example.com/&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/atom10.xml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong class="program">Universal Feed Parser</strong> also lets you set the referrer when you
+download a feed from a web server.  This is discouraged, because it is a
+violation of <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.36">RFC 2616</a>.
+The default behavior is to send a blank referrer, and you should never need to
+override this.</p>
+</section>
+<section id="customizing-the-referrer">
+<h2>Customizing the referrer<a class="headerlink" href="#customizing-the-referrer" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/atom10.xml&#39;</span><span class="p">,</span>
+<span class="go">referrer=&#39;http://example.com/&#39;)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="http-etag.html">ETag and Last-Modified Headers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">User-Agent and Referer Headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-redirect.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-authentication.html">Password-Protected Feeds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-other.html">Other <abbr title="Hypertext Transfer Protocol">HTTP</abbr> Headers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a><ul>
+      <li>Previous: <a href="http-etag.html" title="previous chapter">ETag and Last-Modified Headers</a></li>
+      <li>Next: <a href="http-redirect.html" title="next chapter"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Redirects</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/http-useragent.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

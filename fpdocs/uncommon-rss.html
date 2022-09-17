@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Uncommon RSS Elements &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Uncommon Atom Elements" href="uncommon-atom.html" />
+    <link rel="prev" title="Getting Detailed Information on Atom Elements" href="atom-detail.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="uncommon-rss-elements">
+<h1>Uncommon <abbr title="Rich Site Summary">RSS</abbr> Elements<a class="headerlink" href="#uncommon-rss-elements" title="Permalink to this headline">¶</a></h1>
+<p>These elements are less common, but are useful for niche applications and may
+be present in any <abbr title="Rich Site Summary">RSS</abbr> feed.</p>
+<p>An <abbr title="Rich Site Summary">RSS</abbr> feed can specify a small image which some
+aggregators display as a logo.</p>
+<section id="accessing-feed-image">
+<h2>Accessing feed image<a class="headerlink" href="#accessing-feed-image" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/rss20.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">image</span>
+<span class="go">{&#39;title&#39;: u&#39;Example banner&#39;,</span>
+<span class="go">&#39;href&#39;: u&#39;http://example.org/banner.png&#39;,</span>
+<span class="go">&#39;width&#39;: 80,</span>
+<span class="go">&#39;height&#39;: 15,</span>
+<span class="go">&#39;link&#39;: u&#39;http://example.org/&#39;}</span>
+</pre></div>
+</div>
+<p>Feeds and entries can be assigned to multiple categories, and in some versions
+of <abbr title="Rich Site Summary">RSS</abbr>, categories can be associated with a
+“domain”.  Both are free-form strings.  For historical reasons,
+<strong class="program">Universal Feed Parser</strong> makes multiple categories available as a list
+of tuples, rather than a list of dictionaries.</p>
+</section>
+<section id="accessing-multiple-categories">
+<h2>Accessing multiple categories<a class="headerlink" href="#accessing-multiple-categories" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/rss20.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">categories</span>
+<span class="go">[(u&#39;Syndic8&#39;, u&#39;1024&#39;),</span>
+<span class="go">(u&#39;dmoz&#39;, &#39;Top/Society/People/Personal_Homepages/P/&#39;)]</span>
+</pre></div>
+</div>
+<p>Each item in an <abbr title="Rich Site Summary">RSS</abbr> feed can have an “enclosure”, a
+delightful misnomer that is simply a link to an external file (usually a music
+or video file, but any type of file can be “enclosed”).  Once rare, this
+element has recently gained popularity due to the rise of
+<a class="reference external" href="http://en.wikipedia.org/wiki/Podcasting">podcasting</a>.  Some clients (such
+as Apple’s <strong class="program">iTunes</strong>) may automatically download enclosures; others
+(such as the web-based Bloglines) may simply render each enclosure as a link.</p>
+<p>The <abbr title="Rich Site Summary">RSS</abbr> specification states that there can be at
+most one enclosure per item.  However, Atom entries may contain more than one
+enclosure per entry, so <strong class="program">Universal Feed Parser</strong> captures all of them
+and makes them available as a list.</p>
+</section>
+<section id="accessing-enclosures">
+<h2>Accessing enclosures<a class="headerlink" href="#accessing-enclosures" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/rss20.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">enclosures</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">enclosures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">{&#39;type&#39;: u&#39;audio/mpeg&#39;,</span>
+<span class="go">&#39;length&#39;: u&#39;1069871&#39;,</span>
+<span class="go">&#39;href&#39;: u&#39;http://example.org/audio/demo.mp3&#39;}</span>
+</pre></div>
+</div>
+</section>
+<section id="accessing-feed-cloud">
+<h2>Accessing feed cloud<a class="headerlink" href="#accessing-feed-cloud" title="Permalink to this headline">¶</a></h2>
+<p>No one is quite sure what a cloud is.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/rss20.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">cloud</span>
+<span class="go">{&#39;domain&#39;: u&#39;rpc.example.com&#39;,</span>
+<span class="go">&#39;port&#39;: u&#39;80&#39;,</span>
+<span class="go">&#39;path&#39;: u&#39;/RPC2&#39;,</span>
+<span class="go">&#39;registerprocedure&#39;: u&#39;pingMe&#39;,</span>
+<span class="go">&#39;protocol&#39;: u&#39;soap&#39;}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more examples of accessing <abbr title="Rich Site Summary">RSS</abbr> elements,
+see the annotated examples: <a class="reference internal" href="annotated-rss10.html#annotated-rss10"><span class="std std-ref">RSS 1.0</span></a>, <a class="reference internal" href="annotated-rss20.html#annotated-rss20"><span class="std std-ref">RSS 2.0</span></a>,
+and <a class="reference internal" href="annotated-rss20-dc.html#annotated-rss20dc"><span class="std std-ref">RSS 2.0 with Namespaces</span></a>.</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="basic.html">Basic Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common-rss-elements.html">Common <abbr title="Rich Site Summary">RSS</abbr> Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common-atom-elements.html">Common Atom Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atom-detail.html">Getting Detailed Information on Atom Elements</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Uncommon <abbr title="Rich Site Summary">RSS</abbr> Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uncommon-atom.html">Uncommon Atom Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic-existence.html">Testing for Existence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="basic.html">Basic Features</a><ul>
+      <li>Previous: <a href="atom-detail.html" title="previous chapter">Getting Detailed Information on Atom Elements</a></li>
+      <li>Next: <a href="uncommon-atom.html" title="next chapter">Uncommon Atom Elements</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/uncommon-rss.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

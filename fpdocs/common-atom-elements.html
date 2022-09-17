@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Common Atom Elements &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Detailed Information on Atom Elements" href="atom-detail.html" />
+    <link rel="prev" title="Common RSS Elements" href="common-rss-elements.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="common-atom-elements">
+<h1>Common Atom Elements<a class="headerlink" href="#common-atom-elements" title="Permalink to this headline">¶</a></h1>
+<p>Atom feeds generally contain more information than <abbr title="Rich Site Summary">RSS</abbr>
+feeds (because more elements are required), but the most commonly used elements
+are still title, link, subtitle/description, various dates, and ID.</p>
+<p>This sample Atom feed is at <a class="reference external" href="http://feedparser.org/docs/examples/atom10.xml">http://feedparser.org/docs/examples/atom10.xml</a>.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;feed</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2005/Atom&quot;</span>
+<span class="na">xml:base=</span><span class="s">&quot;http://example.org/&quot;</span>
+<span class="na">xml:lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;title</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span><span class="nt">&gt;</span>Sample Feed<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;subtitle</span> <span class="na">type=</span><span class="s">&quot;html&quot;</span><span class="nt">&gt;</span>
+For documentation <span class="ni">&amp;lt;</span>em<span class="ni">&amp;gt;</span>only<span class="ni">&amp;lt;</span>/em<span class="ni">&amp;gt;</span>
+<span class="nt">&lt;/subtitle&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;alternate&quot;</span> <span class="na">href=</span><span class="s">&quot;/&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;self&quot;</span>
+<span class="na">type=</span><span class="s">&quot;application/atom+xml&quot;</span>
+<span class="na">href=</span><span class="s">&quot;http://www.example.org/atom10.xml&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;rights</span> <span class="na">type=</span><span class="s">&quot;html&quot;</span><span class="nt">&gt;</span>
+<span class="ni">&amp;lt;</span>p&gt;Copyright 2005, Mark Pilgrim<span class="ni">&amp;lt;</span>/p&gt;<span class="ni">&amp;lt;</span>
+<span class="nt">&lt;/rights&gt;</span>
+<span class="nt">&lt;id&gt;</span>tag:feedparser.org,2005-11-09:/docs/examples/atom10.xml<span class="nt">&lt;/id&gt;</span>
+<span class="nt">&lt;generator</span>
+<span class="na">uri=</span><span class="s">&quot;http://example.org/generator/&quot;</span>
+<span class="na">version=</span><span class="s">&quot;4.0&quot;</span><span class="nt">&gt;</span>
+Sample Toolkit
+<span class="nt">&lt;/generator&gt;</span>
+<span class="nt">&lt;updated&gt;</span>2005-11-09T11:56:34Z<span class="nt">&lt;/updated&gt;</span>
+<span class="nt">&lt;entry&gt;</span>
+<span class="nt">&lt;title&gt;</span>First entry title<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;alternate&quot;</span>
+<span class="na">href=</span><span class="s">&quot;/entry/3&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;related&quot;</span>
+<span class="na">type=</span><span class="s">&quot;text/html&quot;</span>
+<span class="na">href=</span><span class="s">&quot;http://search.example.com/&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;via&quot;</span>
+<span class="na">type=</span><span class="s">&quot;text/html&quot;</span>
+<span class="na">href=</span><span class="s">&quot;http://toby.example.com/examples/atom10&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;enclosure&quot;</span>
+<span class="na">type=</span><span class="s">&quot;video/mpeg4&quot;</span>
+<span class="na">href=</span><span class="s">&quot;http://www.example.com/movie.mp4&quot;</span>
+<span class="na">length=</span><span class="s">&quot;42301&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;id&gt;</span>tag:feedparser.org,2005-11-09:/docs/examples/atom10.xml:3<span class="nt">&lt;/id&gt;</span>
+<span class="nt">&lt;published&gt;</span>2005-11-09T00:23:47Z<span class="nt">&lt;/published&gt;</span>
+<span class="nt">&lt;updated&gt;</span>2005-11-09T11:56:34Z<span class="nt">&lt;/updated&gt;</span>
+<span class="nt">&lt;summary</span> <span class="na">type=</span><span class="s">&quot;text/plain&quot;</span> <span class="na">mode=</span><span class="s">&quot;escaped&quot;</span><span class="nt">&gt;</span>Watch out for nasty tricks<span class="nt">&lt;/summary&gt;</span>
+<span class="nt">&lt;content</span> <span class="na">type=</span><span class="s">&quot;application/xhtml+xml&quot;</span> <span class="na">mode=</span><span class="s">&quot;xml&quot;</span>
+<span class="na">xml:base=</span><span class="s">&quot;http://example.org/entry/3&quot;</span> <span class="na">xml:lang=</span><span class="s">&quot;en-US&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="nt">&gt;</span>Watch out for
+<span class="nt">&lt;span</span> <span class="na">style=</span><span class="s">&quot;background: url(javascript:window.location=&#39;http://example.org/&#39;)&quot;</span><span class="nt">&gt;</span>
+nasty tricks<span class="nt">&lt;/span&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/content&gt;</span>
+<span class="nt">&lt;/entry&gt;</span>
+<span class="nt">&lt;/feed&gt;</span>
+</pre></div>
+</div>
+<p>The feed elements are available in <code class="docutils literal notranslate"><span class="pre">d.feed</span></code>.</p>
+<section id="accessing-common-feed-elements">
+<h2>Accessing Common Feed Elements<a class="headerlink" href="#accessing-common-feed-elements" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/atom10.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">title</span>
+<span class="go">u&#39;Sample feed&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">link</span>
+<span class="go">u&#39;http://example.org/&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">subtitle</span>
+<span class="go">u&#39;For documentation &lt;em&gt;only&lt;/em&gt;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">updated</span>
+<span class="go">u&#39;2005-11-09T11:56:34Z&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">updated_parsed</span>
+<span class="go">(2005, 11, 9, 11, 56, 34, 2, 313, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">id</span>
+<span class="go">u&#39;tag:feedparser.org,2005-11-09:/docs/examples/atom10.xml&#39;</span>
+</pre></div>
+</div>
+<p>Entries are available in <code class="docutils literal notranslate"><span class="pre">d.entries</span></code>, which is a list. You access entries in
+the order in which they appear in the original feed, so the first entry is
+<code class="docutils literal notranslate"><span class="pre">d.entries[0]</span></code>.</p>
+</section>
+<section id="accessing-common-entry-elements">
+<h2>Accessing Common Entry Elements<a class="headerlink" href="#accessing-common-entry-elements" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/atom10.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">title</span>
+<span class="go">u&#39;First entry title&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">link</span>
+<span class="go">u&#39;http://example.org/entry/3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+<span class="go">u&#39;tag:feedparser.org,2005-11-09:/docs/examples/atom10.xml:3&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">published</span>
+<span class="go">u&#39;2005-11-09T00:23:47Z&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">published_parsed</span>
+<span class="go">(2005, 11, 9, 0, 23, 47, 2, 313, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">updated</span>
+<span class="go">u&#39;2005-11-09T11:56:34Z&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">updated_parsed</span>
+<span class="go">(2005, 11, 9, 11, 56, 34, 2, 313, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">summary</span>
+<span class="go">u&#39;Watch out for nasty tricks&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">content</span>
+<span class="go">[{&#39;type&#39;: u&#39;application/xhtml+xml&#39;,</span>
+<span class="go">&#39;base&#39;: u&#39;http://example.org/entry/3&#39;,</span>
+<span class="go">&#39;language&#39;: u&#39;en-US&#39;,</span>
+<span class="go">&#39;value&#39;: u&#39;&lt;div&gt;Watch out for &lt;span&gt;nasty tricks&lt;/span&gt;&lt;/div&gt;&#39;}]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The parsed summary and content are not the same as they appear in the
+original feed. The original elements contained dangerous <abbr title="HyperText Markup Language">HTML</abbr> markup which was sanitized. See
+<a class="reference internal" href="html-sanitization.html#advanced-sanitization"><span class="std std-ref">Sanitization</span></a> for details.</p>
+</div>
+<p>Because Atom entries can have more than one content element,
+<code class="docutils literal notranslate"><span class="pre">d.entries[0].content</span></code> is a list of dictionaries. Each dictionary contains
+metadata about a single content element. The two most important values in the
+dictionary are the content type, in <code class="docutils literal notranslate"><span class="pre">d.entries[0].content[0].type</span></code>, and the
+actual content value, in <code class="docutils literal notranslate"><span class="pre">d.entries[0].content[0].value</span></code>.</p>
+<p>You can get this level of detail on other Atom elements too.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="basic.html">Basic Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common-rss-elements.html">Common <abbr title="Rich Site Summary">RSS</abbr> Elements</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Common Atom Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atom-detail.html">Getting Detailed Information on Atom Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uncommon-rss.html">Uncommon <abbr title="Rich Site Summary">RSS</abbr> Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uncommon-atom.html">Uncommon Atom Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic-existence.html">Testing for Existence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="basic.html">Basic Features</a><ul>
+      <li>Previous: <a href="common-rss-elements.html" title="previous chapter">Common <abbr title="Rich Site Summary">RSS</abbr> Elements</a></li>
+      <li>Next: <a href="atom-detail.html" title="next chapter">Getting Detailed Information on Atom Elements</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/common-atom-elements.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

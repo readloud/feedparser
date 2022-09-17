@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>feed.publisher_detail &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="feed.rights" href="reference-feed-rights.html" />
+    <link rel="prev" title="feed.publisher" href="reference-feed-publisher.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="feed-publisher-detail">
+<span id="reference-feed-publisher-detail"></span><h1><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.publisher_detail</span></code><a class="headerlink" href="#feed-publisher-detail" title="Permalink to this headline">¶</a></h1>
+<p>A dictionary with details about the feed publisher.</p>
+<section id="feed-publisher-detail-name">
+<h2><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.publisher_detail.name</span></code><a class="headerlink" href="#feed-publisher-detail-name" title="Permalink to this headline">¶</a></h2>
+<p>The name of this feed’s publisher.</p>
+</section>
+<section id="feed-publisher-detail-href">
+<span id="reference-feed-publisher-detail-href"></span><h2><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.publisher_detail.href</span></code><a class="headerlink" href="#feed-publisher-detail-href" title="Permalink to this headline">¶</a></h2>
+<p>The <abbr title="Uniform Resource Locator">URL</abbr> of this feed’s publisher.  This can
+be the publisher’s home page, or a contact page with a webmail form.</p>
+<p>If this is a relative <abbr title="Uniform Resource Identifier">URI</abbr>, it is
+<a class="reference internal" href="resolving-relative-links.html#advanced-base"><span class="std std-ref">resolved according to a set of rules</span></a>.</p>
+</section>
+<section id="feed-publisher-detail-email">
+<h2><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.publisher_detail.email</span></code><a class="headerlink" href="#feed-publisher-detail-email" title="Permalink to this headline">¶</a></h2>
+<p>The email address of this feed’s publisher.</p>
+<p class="rubric">Comes from</p>
+<ul class="simple">
+<li><p>/rdf:RDF/rdf:channel/dc:publisher</p></li>
+<li><p>/rss/channel/dc:publisher</p></li>
+<li><p>/rss/channel/itunes:owner</p></li>
+<li><p>/rss/channel/webMaster</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference-feed-publisher.html#reference-feed-publisher"><span class="std std-ref">feed.publisher</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="reference-bozo.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">bozo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-bozo_exception.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">bozo_exception</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-encoding.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">encoding</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-author.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].author</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-author_detail.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].author_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-comments.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].comments</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-content.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].content</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-contributors.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].contributors</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-created.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].created</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-created_parsed.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].created_parsed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-enclosures.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].enclosures</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-expired.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].expired</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-expired_parsed.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].expired_parsed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-id.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-license.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].license</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-link.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].link</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-links.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].links</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-published.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].published</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-published_parsed.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].published_parsed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-publisher.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].publisher</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-publisher_detail.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].publisher_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-source.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].source</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-summary.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].summary</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-summary_detail.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].summary_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-tags.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].tags</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-title.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].title</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-title_detail.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].title_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-updated.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].updated</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-entry-updated_parsed.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">entries[i].updated_parsed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-etag.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">etag</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-author.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.author</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-author_detail.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.author_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-cloud.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.cloud</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-contributors.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.contributors</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-docs.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.docs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-errorreportsto.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.errorreportsto</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-generator.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.generator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-generator_detail.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.generator_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-icon.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.icon</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-id.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-image.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.image</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-info.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-info-detail.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.info_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-language.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.language</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-license.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.license</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-link.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.link</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-links.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.links</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-logo.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.logo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-published.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.published</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-published_parsed.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.published_parsed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-publisher.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.publisher</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.publisher_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-rights.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.rights</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-rights_detail.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.rights_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-subtitle.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.subtitle</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-subtitle_detail.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.subtitle_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-tags.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.tags</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-textinput.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.textinput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-title.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.title</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-title_detail.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.title_detail</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-ttl.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.ttl</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-updated.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.updated</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-feed-updated_parsed.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.updated_parsed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-headers.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">headers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-href.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">href</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-modified.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">modified</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-namespaces.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">namespaces</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-status.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">status</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference-version.html"><code class="xref py py-attr docutils literal notranslate"><span class="pre">version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="reference.html">Reference</a><ul>
+      <li>Previous: <a href="reference-feed-publisher.html" title="previous chapter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.publisher</span></code></a></li>
+      <li>Next: <a href="reference-feed-rights.html" title="next chapter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">feed.rights</span></code></a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/reference-feed-publisher_detail.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

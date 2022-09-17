@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Atom 1.0 &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Atom 0.3" href="annotated-atom03.html" />
+    <link rel="prev" title="Annotated Examples" href="annotated-examples.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="atom-1-0">
+<span id="annotated-atom10"></span><h1>Atom 1.0<a class="headerlink" href="#atom-1-0" title="Permalink to this headline">¶</a></h1>
+<p>This is a sample Atom 1.0 feed, annotated with links that show how each value
+can be accessed once the feed is parsed.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Even though many of these elements are required according to the specification,
+real-world feeds may be missing any element. If an element is not present in
+the feed, it will not be present in the parsed results. You should not rely on
+any particular element being present.</p>
+</div>
+<p class="rubric">Annotated Atom 1.0 feed</p>
+<div class="pre docutils container">
+<p>&lt;?xml version=”1.0” encoding=”<a class="reference internal" href="reference-encoding.html#reference-encoding"><span class="std std-ref">utf-8</span></a>”?&gt;
+&lt;feed xmlns=”<a class="reference internal" href="reference-version.html#reference-version"><span class="std std-ref">http://www.w3.org/2005/Atom</span></a>”
+xml:base=”<a class="reference internal" href="resolving-relative-links.html#advanced-base"><span class="std std-ref">http://example.org/</span></a>”
+xml:lang=”<a class="reference internal" href="reference-feed-title_detail.html#reference-feed-title-detail-language"><span class="std std-ref">en</span></a>”&gt;
+&lt;title type=”<a class="reference internal" href="reference-feed-title_detail.html#reference-feed-title-detail-type"><span class="std std-ref">text</span></a>”&gt;
+<a class="reference internal" href="reference-feed-title.html#reference-feed-title"><span class="std std-ref">Sample Feed</span></a>
+&lt;/title&gt;
+&lt;subtitle type=”<a class="reference internal" href="reference-feed-subtitle_detail.html#reference-feed-subtitle-detail-type"><span class="std std-ref">html</span></a>”&gt;
+<a class="reference internal" href="reference-feed-subtitle.html#reference-feed-subtitle"><span class="std std-ref">For documentation &amp;lt;em&amp;gt;only&amp;lt;/em&amp;gt;</span></a>
+&lt;/subtitle&gt;
+&lt;link rel=”<a class="reference internal" href="reference-feed-links.html#reference-feed-links-rel"><span class="std std-ref">alternate</span></a>”
+type=”<a class="reference internal" href="reference-feed-links.html#reference-feed-links-type"><span class="std std-ref">html</span></a>”
+href=”<a class="reference internal" href="reference-feed-links.html#reference-feed-links-href"><span class="std std-ref">/</span></a>”/&gt;
+&lt;link rel=”<a class="reference internal" href="reference-feed-links.html#reference-feed-links-rel"><span class="std std-ref">self</span></a>”
+type=”<a class="reference internal" href="reference-feed-links.html#reference-feed-links-type"><span class="std std-ref">application/atom+xml</span></a>”
+href=”<a class="reference internal" href="reference-feed-links.html#reference-feed-links-href"><span class="std std-ref">http://www.example.org/atom10.xml</span></a>”/&gt;
+&lt;rights type=”<a class="reference internal" href="reference-feed-rights_detail.html#reference-feed-rights-detail-type"><span class="std std-ref">html</span></a>”&gt;
+<a class="reference internal" href="reference-feed-rights.html#reference-feed-rights"><span class="std std-ref">&amp;lt;p&gt;Copyright 2005, Mark Pilgrim&amp;lt;/p&gt;</span></a>
+&lt;/rights&gt;
+&lt;generator uri=”<a class="reference internal" href="reference-feed-generator_detail.html#reference-feed-generator-detail-href"><span class="std std-ref">http://example.org/generator/</span></a>”
+version=”<a class="reference internal" href="reference-feed-generator_detail.html#reference-feed-generator-detail-version"><span class="std std-ref">4.0</span></a>”&gt;
+<a class="reference internal" href="reference-feed-generator.html#reference-feed-generator"><span class="std std-ref">Sample Toolkit</span></a>
+&lt;/generator&gt;
+&lt;id&gt;<a class="reference internal" href="reference-feed-id.html#reference-feed-id"><span class="std std-ref">tag:feedparser.org,2005-11-09:/docs/examples/atom10.xml</span></a>&lt;/id&gt;
+&lt;updated&gt;<a class="reference internal" href="reference-feed-updated.html#reference-feed-updated"><span class="std std-ref">2005-11-09T11:56:34Z</span></a>&lt;/updated&gt;
+&lt;entry&gt;
+&lt;title&gt;<a class="reference internal" href="reference-entry-title.html#reference-entry-title"><span class="std std-ref">First entry title</span></a>&lt;/title&gt;
+&lt;link rel=”<a class="reference internal" href="reference-entry-links.html#reference-entry-links-type"><span class="std std-ref">alternate</span></a>”
+href=”<a class="reference internal" href="reference-entry-links.html#reference-entry-links-href"><span class="std std-ref">/entry/3</span></a>”/&gt;
+&lt;link rel=”<a class="reference internal" href="reference-entry-links.html#reference-entry-links-type"><span class="std std-ref">related</span></a>”
+type=”<a class="reference internal" href="reference-entry-links.html#reference-entry-links-type"><span class="std std-ref">text/html</span></a>”
+href=”<a class="reference internal" href="reference-entry-links.html#reference-entry-links-href"><span class="std std-ref">http://search.example.com/</span></a>”/&gt;
+&lt;link rel=”<a class="reference internal" href="reference-entry-links.html#reference-entry-links-type"><span class="std std-ref">via</span></a>”
+type=”<a class="reference internal" href="reference-entry-links.html#reference-entry-links-type"><span class="std std-ref">text/html</span></a>”
+href=”<a class="reference internal" href="reference-entry-links.html#reference-entry-links-href"><span class="std std-ref">http://toby.example.com/examples/atom10</span></a>”/&gt;
+&lt;link rel=”<a class="reference internal" href="reference-entry-enclosures.html#reference-entry-enclosures"><span class="std std-ref">enclosure</span></a>”
+type=”<a class="reference internal" href="reference-entry-enclosures.html#reference-entry-enclosures-type"><span class="std std-ref">video/mpeg4</span></a>”
+href=”<a class="reference internal" href="reference-entry-enclosures.html#reference-entry-enclosures-href"><span class="std std-ref">http://www.example.com/movie.mp4</span></a>”
+length=”<a class="reference internal" href="reference-entry-enclosures.html#reference-entry-enclosures-length"><span class="std std-ref">42301</span></a>”/&gt;
+&lt;id&gt;<a class="reference internal" href="reference-entry-id.html#reference-entry-id"><span class="std std-ref">tag:feedparser.org,2005-11-09:/docs/examples/atom10.xml:3</span></a>&lt;/id&gt;
+&lt;published&gt;<a class="reference internal" href="reference-entry-published.html#reference-entry-published"><span class="std std-ref">2005-11-09T00:23:47Z</span></a>&lt;/published&gt;
+&lt;updated&gt;<a class="reference internal" href="reference-entry-updated.html#reference-entry-updated"><span class="std std-ref">2005-11-09T11:56:34Z</span></a>&lt;/updated&gt;
+&lt;author&gt;
+&lt;name&gt;<a class="reference internal" href="reference-entry-author_detail.html#reference-entry-author-detail-name"><span class="std std-ref">Mark Pilgrim</span></a>&lt;/name&gt;
+&lt;uri&gt;<a class="reference internal" href="reference-entry-author_detail.html#reference-entry-author-detail-href"><span class="std std-ref">http://diveintomark.org/</span></a>&lt;/uri&gt;
+&lt;email&gt;<a class="reference internal" href="reference-entry-author_detail.html#reference-entry-author-detail-email"><span class="std std-ref">mark&#64;example.org</span></a>&lt;/email&gt;
+&lt;/author&gt;
+&lt;contributor&gt;
+&lt;name&gt;<a class="reference internal" href="reference-entry-contributors.html#reference-entry-contributors-name"><span class="std std-ref">Joe</span></a>&lt;/name&gt;
+&lt;url&gt;<a class="reference internal" href="reference-entry-contributors.html#reference-entry-contributors-href"><span class="std std-ref">http://example.org/joe/</span></a>&lt;/url&gt;
+&lt;email&gt;<a class="reference internal" href="reference-entry-contributors.html#reference-entry-contributors-email"><span class="std std-ref">joe&#64;example.org</span></a>&lt;/email&gt;
+&lt;/contributor&gt;
+&lt;contributor&gt;
+&lt;name&gt;<a class="reference internal" href="reference-entry-contributors.html#reference-entry-contributors-name"><span class="std std-ref">Sam</span></a>&lt;/name&gt;
+&lt;url&gt;<a class="reference internal" href="reference-entry-contributors.html#reference-entry-contributors-href"><span class="std std-ref">http://example.org/sam/</span></a>&lt;/url&gt;
+&lt;email&gt;<a class="reference internal" href="reference-entry-contributors.html#reference-entry-contributors-email"><span class="std std-ref">sam&#64;example.org</span></a>&lt;/email&gt;
+&lt;/contributor&gt;
+&lt;summary type=”<a class="reference internal" href="reference-entry-summary_detail.html#reference-entry-summary-detail-type"><span class="std std-ref">text</span></a>”&gt;
+<a class="reference internal" href="reference-entry-summary.html#reference-entry-summary"><span class="std std-ref">Watch out for nasty tricks</span></a>
+&lt;/summary&gt;
+&lt;content type=”<a class="reference internal" href="reference-entry-content.html#reference-entry-content-type"><span class="std std-ref">xhtml</span></a>”
+xml:base=”<a class="reference internal" href="reference-entry-content.html#reference-entry-content-base"><span class="std std-ref">http://example.org/entry/3</span></a>”
+xml:lang=”<a class="reference internal" href="reference-entry-content.html#reference-entry-content-language"><span class="std std-ref">en-US</span></a>”&gt;<a class="reference internal" href="reference-entry-content.html#reference-entry-content-value"><span class="std std-ref">&lt;div xmlns=”http://www.w3.org/1999/xhtml”&gt;Watch out for
+&lt;span style=”background-image: url(javascript:window.location=’http://example.org/’)”&gt;
+nasty tricks&lt;/span&gt;&lt;/div&gt;</span></a>
+&lt;/content&gt;
+&lt;/entry&gt;
+&lt;/feed&gt;</p>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Atom 1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotated-atom03.html">Atom 0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotated-rss20.html"><abbr title="Rich Site Summary">RSS</abbr> 2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotated-rss20-dc.html">RSS 2.0 with Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotated-rss10.html"><abbr title="Rich Site Summary">RSS</abbr> 1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="annotated-examples.html">Annotated Examples</a><ul>
+      <li>Previous: <a href="annotated-examples.html" title="previous chapter">Annotated Examples</a></li>
+      <li>Next: <a href="annotated-atom03.html" title="next chapter">Atom 0.3</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/annotated-atom10.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

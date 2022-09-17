@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>HTTP Redirects &#8212; feedparser 5.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/feedparser.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Password-Protected Feeds" href="http-authentication.html" />
+    <link rel="prev" title="User-Agent and Referer Headers" href="http-useragent.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="http-redirects">
+<h1><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Redirects<a class="headerlink" href="#http-redirects" title="Permalink to this headline">¶</a></h1>
+<p>When you download a feed from a remote web server, <strong class="program">Universal Feed Parser</strong>
+exposes the <abbr title="Hypertext Transfer Protocol">HTTP</abbr> status code.  You need
+to understand the different codes, including permanent and temporary redirects,
+and feeds that have been marked “gone”.</p>
+<p>When a feed has temporarily moved to a new location, the web server will return
+a <code class="docutils literal notranslate"><span class="pre">302</span></code> status code.  <strong class="program">Universal Feed Parser</strong> makes this available
+in <code class="docutils literal notranslate"><span class="pre">d.status</span></code>.</p>
+<p>There is nothing special you need to do with temporary redirects; by the time
+you learn about it, <strong class="program">Universal Feed Parser</strong> has already followed the
+redirect to the new location (available in <code class="docutils literal notranslate"><span class="pre">d.href</span></code>), downloaded the feed,
+and parsed it.  Since the redirect is temporary, you should continue requesting
+the original <abbr title="Uniform Resource Locator">URL</abbr> the next time you want to
+parse the feed.</p>
+<section id="noticing-temporary-redirects">
+<h2>Noticing temporary redirects<a class="headerlink" href="#noticing-temporary-redirects" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/temporary.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">status</span>
+<span class="go">302</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">href</span>
+<span class="go">&#39;http://feedparser.org/docs/examples/atom10.xml&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">title</span>
+<span class="go">u&#39;Sample Feed&#39;</span>
+</pre></div>
+</div>
+<p>When a feed has permanently moved to a new location, the web server will return
+a <code class="docutils literal notranslate"><span class="pre">301</span></code> status code.  Again, <strong class="program">Universal Feed Parser</strong> makes this
+available in <code class="docutils literal notranslate"><span class="pre">d.status</span></code>.</p>
+<p>If you are polling a feed on a regular basis, it is very important to check the
+status code (<code class="docutils literal notranslate"><span class="pre">d.status</span></code>) every time you download.  If the feed has been
+permanently redirected, you should update your database or configuration file
+with the new address (<code class="docutils literal notranslate"><span class="pre">d.href</span></code>).  Repeatedly requesting the original address
+of a feed that has been permanently redirected is very rude, and may get you
+banned from the server.</p>
+</section>
+<section id="noticing-permanent-redirects">
+<h2>Noticing permanent redirects<a class="headerlink" href="#noticing-permanent-redirects" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/permanent.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">status</span>
+<span class="go">301</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">href</span>
+<span class="go">&#39;http://feedparser.org/docs/examples/atom10.xml&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">feed</span><span class="o">.</span><span class="n">title</span>
+<span class="go">u&#39;Sample Feed&#39;</span>
+</pre></div>
+</div>
+<p>When a feed has been permanently deleted, the web server will return a <code class="docutils literal notranslate"><span class="pre">410</span></code>
+status code.  If you ever receive a <code class="docutils literal notranslate"><span class="pre">410</span></code>, you should stop polling the feed
+and inform the end user that the feed is gone for good.</p>
+<p>Repeatedly requesting a feed that has been marked as “gone” is very rude, and
+may get you banned from the server.</p>
+</section>
+<section id="noticing-feeds-marked-gone">
+<h2>Noticing feeds marked “gone”<a class="headerlink" href="#noticing-feeds-marked-gone" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;http://feedparser.org/docs/examples/gone.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">status</span>
+<span class="go">410</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feedparser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="http-etag.html">ETag and Last-Modified Headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-useragent.html">User-Agent and Referer Headers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-authentication.html">Password-Protected Feeds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-other.html">Other <abbr title="Hypertext Transfer Protocol">HTTP</abbr> Headers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="annotated-examples.html">Annotated Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Revision history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Documentation license</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="http.html"><abbr title="Hypertext Transfer Protocol">HTTP</abbr> Features</a><ul>
+      <li>Previous: <a href="http-useragent.html" title="previous chapter">User-Agent and Referer Headers</a></li>
+      <li>Next: <a href="http-authentication.html" title="next chapter">Password-Protected Feeds</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2004-2008 Mark Pilgrim, 2010-2015 Kurt McKee.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/http-redirect.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
